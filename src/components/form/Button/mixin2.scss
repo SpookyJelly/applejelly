@@ -1,0 +1,194 @@
+@mixin button2-variables {
+    --form-text-placeholder: var(--ui-text-tertiary);
+    --form-text-disabled: var(--ui-text-disabled);
+    --form-icon: var(--ui-text-tertiary);
+    --form-icon-disabled: var(--ui-text-disabled);
+    --form-icon-hover: var(--ui-text);
+    --form-background: var(--ui-background);
+    --form-background-focus: var(--ui-interaction-secondary);
+    --form-background-disabled: var(--LIGHT, #f9fafb) var(--DARK, #222126);
+    --form-border: var(--LIGHT, #c2c8dd) var(--DARK, #65626a);
+    --form-border-minor: var(--LIGHT, #b4bcd4) var(--DARK, #65626a);
+    --form-border-hover: var(--LIGHT, #585f70) var(--DARK, #858387);
+    --form-border-focus: var(--ui-interaction-primary);
+    --form-border-disabled: var(--LIGHT, #e2e5ed) var(--DARK, #2c2b2b);
+    --form-shadow-focus: var(--LIGHT, rgba(0, 107, 194, 0.3))
+        var(--DARK, rgba(87, 159, 221, 0.8));
+    --button-default-background: var(--LIGHT, var(--form-background))
+        var(--DARK, #3b393d);
+    --button-default-text-hover: var(--LIGHT, var(--ui-text))
+        var(--DARK, var(--ui-text-knockout));
+    --button-primary-text-disabled: var(--LIGHT, var(--ui-text-knockout))
+        var(--DARK, var(--ui-text-disabled));
+    --button-primary-background-disabled: var(--LIGHT, #bde3f6)
+        var(--DARK, #09245b);
+    --button-success-background-contrast: var(--LIGHT, #39b15d)
+        var(--DARK, #40ab5e);
+    --button-success-background-disabled: var(--LIGHT, #c6edd0)
+        var(--DARK, #133a1d);
+    --button-warning-background-contrast: var(--LIGHT, #de5f0c)
+        var(--DARK, #e8ae41);
+    --button-warning-background-disabled: var(--LIGHT, #ffdf88)
+        var(--DARK, #664811);
+    --button-danger-background-disabled: var(--LIGHT, #fbd6db)
+        var(--DARK, #5e151e);
+    --button-default-text-naked-active: var(--LIGHT, #000) var(--DARK, #fff);
+    --button-shade-text: hsla(0, 0%, 100%, 0.6);
+    --link-hover: var(--LIGHT, #0b0f8b) var(--DARK, #7ab5ea);
+    --link-active: var(--LIGHT, #080b65) var(--DARK, #a4cef7);
+    --ui-border-radius: inherit;
+    --_button-color-main: initial;
+    --_button-color-contrast: initial;
+    --_button-color-contrast-background: var(--_button-color-contrast);
+    --_button-bg: var(--button-default-background);
+    --_button-bg--hover: initial;
+    --_button-bg--active: initial;
+    --_button-bg--disabled: var(--button-primary-background-disabled);
+    --_button-text: var(--_button-color-main);
+    --_button-text--hover: var(--_button-color-contrast);
+    --_button-text--active: var(--_button-text--hover);
+    --_button-icon-color: currentColor;
+    --_button-icon-color--override: initial;
+    --_button-icon-color--hover: initial;
+    --_button-border: currentColor;
+    --_button-border--hover: initial;
+    --_button-shadow--hover: 0 0 1px rgba(0, 0, 0, 0.1),
+        0 1px 2px var(--ui-shadow-strength);
+    --_button-shadow--active: inset 0 0.1em 0.3em rgba(0, 0, 0, 0.3);
+}
+
+@mixin button2-styles {
+    $button: &;
+
+    &--default {
+        --_button-color-main: var(--ui-interaction-primary);
+        --_button-color-contrast: var(--ui-interaction-primary-contrast);
+        --_button-border: var(--form-border);
+        --_button-border--hover: var(--form-border-hover);
+        --_button-text: var(--ui-text);
+        --_button-text--hover: var(--button-default-text-hover);
+        --_button-icon-color--hover: currentColor;
+
+        &:not(#{$button}--is-primary):not(#{$button}--is-borderless):not(
+                #{$button}--is-naked
+            ):not(:disabled):not(#{$button}--is-disabled) {
+            --_button-icon-color: var(--ui-icon);
+        }
+
+        &#{$button}--is-primary {
+            --_button-border--hover: initial;
+        }
+    }
+
+    &--success {
+        --_button-color-main: var(--ui-status-success);
+        --_button-color-contrast: var(--ui-status-success-contrast);
+        --_button-color-contrast-background: var(
+            --button-success-background-contrast
+        );
+        --_button-bg--disabled: var(--button-success-background-disabled);
+    }
+
+    &--warning {
+        --_button-color-main: var(--ui-status-warning);
+        --_button-color-contrast: var(--ui-status-warning-contrast);
+        --_button-color-contrast-background: var(
+            --button-warning-background-contrast
+        );
+        --_button-bg--disabled: var(--button-warning-background-disabled);
+        --_button-border: var(--_button-color-main);
+        --_button-border--hover: currentColor;
+        --_button-text: var(--_button-color-contrast);
+        --_button-text--hover: initial;
+
+        &#{$button}--is-primary {
+            --_button-border--hover: initial;
+            --_button-text: rgba(0, 0, 0, 0.67);
+            --_button-text--hover: initial;
+            --_button-bg--hover: var(--_button-color-contrast);
+            --_button-border: var(--_button-color-contrast);
+        }
+        &#{$button}--is-borderless[class] {
+            --_button-bg--hover: var(--_button-color-contrast);
+        }
+        &#{$button}--is-borderless#{$button}--is-primary {
+            --_button-text: var(--_button-color-contrast);
+        }
+    }
+
+    &--danger {
+        --_button-color-main: var(--ui-status-danger);
+        --_button-color-contrast: var(--ui-status-danger-contrast);
+        --_button-bg--disabled: var(--button-danger-background-disabled);
+    }
+
+    &--is-primary {
+        --_button-text: var(--ui-text-knockout);
+        --_button-text--hover: initial;
+        --_button-bg: var(--_button-color-main);
+        --_button-bg--hover: var(--_button-color-contrast-background);
+        --_button-border: var(--_button-color-contrast-background);
+    }
+
+    @media (forced-colors: active) {
+        &--is-primary {
+            border-width: 2px;
+        }
+
+        &--is-primary:focus-visible {
+            outline-offset: 1px;
+        }
+    }
+
+    &--is-borderless[class],
+    &--is-naked[class] {
+        --_button-text: var(--ui-text-secondary);
+        --_button-text--hover: initial;
+        --_button-shadow--hover: none;
+        --_button-shadow--active: none;
+        --_button-bg: transparent;
+        --_button-border: transparent;
+        --_button-border--hover: transparent;
+    }
+
+    &--is-borderless[class] {
+        --_button-text--hover: var(--ui-text-knockout);
+        --_button-bg--hover: var(--_button-color-main);
+        --_button-bg--active: var(--_button-color-contrast-background);
+    }
+
+    &--is-borderless#{$button}--is-primary {
+        --_button-text: var(--_button-color-main);
+    }
+
+    &--is-naked[class] {
+        --_button-bg: transparent;
+        --_button-bg--hover: transparent;
+        --_button-text--hover: var(--_button-color-main);
+        --_button-text--active: var(--_button-color-contrast);
+    }
+
+    &--is-naked#{$button}--is-primary[class] {
+        --_button-text: var(--_button-color-main);
+        --_button-text--hover: var(--_button-color-contrast);
+    }
+
+    &--is-naked#{$button}--default {
+        --_button-text--hover: var(--button-default-text-hover);
+        --_button-text--active: var(--button-default-text-naked-active);
+    }
+
+    &--is-naked#{$button}--default#{$button}--is-primary {
+        --_button-text: var(--ui-interaction-primary);
+        --_button-text--hover: var(--link-hover);
+        --_button-text--active: var(--link-active);
+    }
+
+    &--is-shade:not(#{$button}--is-primary) {
+        --_button-text: var(--button-shade-text);
+    }
+
+    &--has-ellipsis {
+        max-width: 100%;
+    }
+}
