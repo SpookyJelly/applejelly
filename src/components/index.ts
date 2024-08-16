@@ -5,4 +5,5 @@ export { default as Icon } from './common/Icon'
 export { default as Popover } from './dialogs/Popover'
 export { default as Tooltip } from './dialogs/Tooltip'
 export { default as ClickOutside } from './misc/ClickOutside'
+export { default as LoadingIndicator } from './misc/LoadingIndicator'
 // COMPONENT EXPORTS
