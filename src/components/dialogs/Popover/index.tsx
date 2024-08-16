@@ -12,6 +12,8 @@ import {
     arrow,
     autoUpdate,
     flip,
+    FloatingArrow,
+    FloatingPortal,
     offset,
     Placement,
     shift,
@@ -24,6 +26,8 @@ import {
     useInteractions,
     useRole,
 } from '@floating-ui/react'
+import { PopoverContext } from '@applejelly/context'
+import Tooltip, { TooltipProps } from '@applejelly/components/dialogs/Tooltip'
 
 const BLOCK = 'dialogs_popover'
 const Popover = React.forwardRef(
@@ -34,16 +38,18 @@ const Popover = React.forwardRef(
             isRounded,
             className,
             wrapperClassName,
-            placement,
+            wrapperStyle,
+            placement = 'bottom-start',
             onOpen,
             onClose,
-            content,
-            offset: offsetValue,
+            contents,
+            offset: offsetValue = 10,
             width,
-            isDefaultOpen,
+            isDefaultOpen = false,
             isHoverable,
             doesStickToEdges,
             tooltipProps,
+            ...rest
         }: Props,
         ref
     ) => {
@@ -57,6 +63,7 @@ const Popover = React.forwardRef(
             event: unknown,
             reason: unknown
         ) => {
+            setIsOpen(nextOpen)
             if (nextOpen) {
                 onOpen?.(event)
             } else {
@@ -129,18 +136,59 @@ const Popover = React.forwardRef(
         const handleMouseEnter = () => setIsMouseOver(true)
         const handleMouseLeave = () => setIsMouseOver(false)
 
-        // const childrenWithTooltip = tooltipProps ? (
-        // ) : (
-        //     children
-        // )
+        const childrenWithTooltip = tooltipProps ? (
+            <PopoverContext.Provider
+                value={{
+                    ...context,
+                    isMouseOver,
+                }}
+            >
+                <Tooltip {...tooltipProps}>{children}</Tooltip>
+            </PopoverContext.Provider>
+        ) : (
+            children
+        )
+        console.log('contents', contents)
 
-        return <div>test</div>
+        return (
+            <>
+                <div
+                    ref={refs.setReference}
+                    {...getReferenceProps({
+                        onClick(event) {
+                            event.stopPropagation()
+                        },
+                    })}
+                    className={wrapperClassName}
+                    style={{ display: 'inline-flex', ...wrapperStyle }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    {childrenWithTooltip}
+                </div>
+                {isOpen && (
+                    <FloatingPortal id="floating-portal">
+                        <div
+                            className={classes}
+                            ref={refs.setFloating}
+                            style={style}
+                            {...getFloatingProps()}
+                        >
+                            <FloatingArrow
+                                ref={arrowRef}
+                                context={context}
+                                fill="var(--ui-background)"
+                                // stroke="var(--gray-500)"
+                                // strokeWidth={1}
+                            />
+                            <div className={contentClasses}>{contents}</div>
+                        </div>
+                    </FloatingPortal>
+                )}
+            </>
+        )
     }
 )
-// function Popover(props: Props) {
-
-//     return <div>Popover</div>
-// }
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     isPadded?: boolean
@@ -150,7 +198,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     wrapperStyle?: React.CSSProperties
     onOpen?: (event: unknown) => void
     onClose?: (reason: unknown) => void
-    content?: React.ReactNode
+    contents?: React.ReactNode
     offset?: number
     width?: number | string
     isDefaultOpen?: boolean
@@ -161,3 +209,4 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default Popover
+export type { Props as PopoverProps }

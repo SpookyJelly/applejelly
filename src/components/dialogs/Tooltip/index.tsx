@@ -22,6 +22,8 @@ import {
     useTransitionStyles,
     useFloatingNodeId,
     FloatingNode,
+    FloatingPortal,
+    FloatingArrow,
 } from '@floating-ui/react'
 import * as R from 'ramda'
 import './tooltip.scss'
@@ -44,7 +46,7 @@ const PopoverContext = React.createContext(null)
 const BLOCK = 'dialogs_tooltip'
 function Tooltip({
     onClick,
-    content,
+    contents,
     isEnabled = true,
     placement = 'top',
     delay = 'none',
@@ -67,7 +69,6 @@ function Tooltip({
         onOpenChange: setIsOpen,
         placement: placement,
         strategy: 'fixed',
-        elements: {},
         whileElementsMounted: autoUpdate,
         middleware: [arrow({ element: arrowRef }), offset(7), flip(), shift()],
     })
@@ -86,7 +87,7 @@ function Tooltip({
         if (refElement) {
             refs.setPositionReference(refElement)
         }
-    }, [refElement])
+    }, [refElement, refs])
 
     const { getReferenceProps, getFloatingProps } = useInteractions([
         hover,
@@ -96,7 +97,7 @@ function Tooltip({
     ])
 
     const { isMounted, styles } = useTransitionStyles(context, {
-        duration: getDuration(rest.isAnimated, delay),
+        duration: getDuration(Boolean(rest.isAnimated), delay),
     })
 
     const id = useFloatingNodeId()
@@ -112,15 +113,59 @@ function Tooltip({
     }, childArray)
 
     const nestedContents = useContext(Nested)
-    const contentsArr = [nestedContents, content]
+    const contentsArr = [nestedContents, contents]
 
     const handleClick = () => setIsOpen(false)
-    const isContentEmpty = R.isNil(content)
+    const isContentEmpty = contents === undefined || contents === null
     return (
         <>
             <FloatingNode id={id}>
-                <div className={cn(BLOCK, rest.className)}>Test</div>
+                <div
+                    ref={refs.setReference}
+                    className={cn(BLOCK, rest.className)}
+                    style={{
+                        display,
+                    }}
+                    onClick={handleClick}
+                    {...getReferenceProps()}
+                >
+                    {other}
+                </div>
+                <FloatingPortal id="floating-portal">
+                    {!isContentEmpty &&
+                        isMounted &&
+                        isEnabled &&
+                        isVaildElement(contents) && (
+                            <div
+                                ref={refs.setFloating}
+                                className={cn(rest.tooltipClassName)}
+                                {...getFloatingProps({
+                                    onClick,
+                                    onDoubleClick: rest.onDoubleClick,
+                                    onMouseEnter: rest.onMouseEnter,
+                                    onMouseLeave: rest.onMouseLeave,
+                                    onFocus: rest.onFocus,
+                                })}
+                                style={{ ...floatingStyles, zIndex: 2 }}
+                            >
+                                <div
+                                    className={cn(BLOCK, '__tooltip-box')}
+                                    style={{ ...styles }}
+                                >
+                                    {contentsArr.map((content, idx) => {
+                                        return <div key={idx}>{content}</div>
+                                    })}
+                                    <FloatingArrow
+                                        context={context}
+                                        ref={arrowRef}
+                                        style={{ fill: 'var(--gray-700)' }}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                </FloatingPortal>
             </FloatingNode>
+            <Nested.Provider value={contentsArr}>{tooltips}</Nested.Provider>
         </>
     )
 }
@@ -129,7 +174,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     contents?: React.ReactNode
     delay: 'none' | 'short' | 'long'
     isEnabled: boolean
-    isAnimated: boolean
+    isAnimated?: boolean
     isOpen?: boolean
     placement: Placement
     tooltipClassName?: string
@@ -143,3 +188,4 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default Tooltip
+export type { Props as TooltipProps }

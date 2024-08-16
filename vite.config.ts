@@ -8,7 +8,7 @@ export default defineConfig({
     build: {
         lib: {
             entry: './src/index.ts',
-            name: 'next-components',
+            name: 'applejelly',
             fileName: (format) => `index.${format}.js`,
             formats: ['es', 'cjs'],
         },
@@ -16,16 +16,16 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@next': path.resolve(__dirname, './src'),
+            '@applejelly': path.resolve(__dirname, './src'),
         },
     },
     css: {
         preprocessorOptions: {
             scss: {
-                // SCSS 파일에서 별칭 '@next'를 사용할 수 있도록 includePaths에 경로 추가
+                // SCSS 파일에서 별칭 '@applejelly'를 사용할 수 있도록 includePaths에 경로 추가
                 includePaths: [path.resolve(__dirname, 'src')],
                 // SCSS 파일 내에서 별칭을 사용할 때, 경로의 시작 부분에 '~'를 추가
-                // additionalData: `@import '~@next/styles/variables';`,
+                // additionalData: `@import '~@applejelly/styles/variables';`,
             },
         },
     },

@@ -265,10 +265,22 @@
     initial-value: rgba(0, 0, 0, 0.32);
 }
 
-@property --color {
-    syntax: '<color>';
+// Z index
+
+@property --z-index-lv1 {
+    syntax: '<integer>';
     inherits: true;
-    initial-value: blue;
+    initial-value: 1000;
+}
+@property --z-index-lv2 {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 1100;
+}
+@property --z-index-lv3 {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 1200;
 }
 
 // Dark Theme Color

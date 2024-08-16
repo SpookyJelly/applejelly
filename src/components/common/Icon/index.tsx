@@ -6,9 +6,9 @@
 
 import React from 'react'
 import cn from 'classnames'
-import icons from '@next/style/icons'
+import icons from '@applejelly/style/icons'
 import './icon.scss'
-import { TSHIRT_SIZE } from '@next/style/constant'
+import { TSHIRT_SIZE } from '@applejelly/style/constant'
 
 const BLOCK = 'common_icon'
 function Icon({

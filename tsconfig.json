@@ -7,7 +7,7 @@
         "skipLibCheck": true, // Skips type checking of declaration files.
         "baseUrl": ".",
         "paths": {
-            "@next/*": ["src/*"]
+            "@applejelly/*": ["src/*"]
         },
         /* Bundler mode */
         "moduleResolution": "bundler", // Specifies how modules are resolved when bundling.

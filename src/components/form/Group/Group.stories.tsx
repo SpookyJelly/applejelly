@@ -4,7 +4,7 @@ import Button from '../Button/index'
 import { Meta, StoryObj } from '@storybook/block'
 
 export default {
-    title: '@next/form/Group',
+    title: '@applejelly/form/Group',
     component: Group,
 }
 

@@ -3,8 +3,96 @@
  * dialogs_popover
  *
 */
+@import '@applejelly/style/variables.scss';
+@import '@applejelly/style/global.scss';
 
 .dialogs_popover {
+    $pop: &;
+    // font:
+    //     12px NotoSans,
+    //     Helvetica,
+    //     sans-serif;
+    --popover-arrow-outline: #e2e5ed;
+    --popover-background-color: var(--ui-background);
+    --popover-arrow-outline-color: var(--gray-400);
+    --popover-arrow-color: linear-gradient(
+        135deg,
+        var(--ui-base-background-elevated) 50%,
+        transparent 51%
+    );
+    --max-width: initial;
+    --max-height: initial;
+    position: relative;
+    z-index: var(--z-index-lv1);
 
+    &__handle {
+        cursor: pointer;
+    }
+    &__handle-wrapper {
+        display: inline-flex;
+        max-width: 100%;
+        > .tooltip {
+            width: 100%;
+        }
+    }
+    &--padded &__content {
+        padding: 8px 16px;
+    }
+
+    &__content {
+        background-color: var(--popover-background-color);
+        color: var(--ui-text);
+        box-shadow:
+            // 0 0 0 1px var(--ui-base-border-elevated),
+            0 0 0 1px transparent,
+            0 0 1px rgba(0, 0, 0, 0.1),
+            0 3px 12px var(--ui-shadow-strength);
+        max-height: var(--max-height);
+        max-width: var(--max-width);
+
+        &--rounded {
+            border-radius: 2px;
+        }
+
+        // &--is-hoverable {
+        //     word-wrap: break-word;
+        //     max-width: min(var(--max-width, 500px), 500px);
+        // }
+
+        &--does-stick-to-edges {
+            overflow: auto;
+            overscroll-behavior: contain;
+        }
+    }
+    &:not(#{$pop}--is-padded)
+        > &__content--is-rounded
+        .popover-menu-item-wrapper:first-child {
+        --ui-border-radius: 4px;
+        --_ui-lockup--bl: 0px;
+        --_ui-lockup--br: 0px;
+    }
+
+    &:not(&--is-padded)
+        > &__content--is-rounded
+        .popover-menu-item-wrapper:last-child {
+        --ui-border-radius: 4px;
+        --_ui-lockup--tl: 0px;
+        --_ui-lockup--tr: 0px;
+    }
+
+    &--is-animated {
+        transition: 0.15s ease-in-out;
+        transition-property: opacity, visibility;
+        will-change: opacity, visibility;
+
+        &:not(#{$pop}--is-shown) {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
 }
-
+@media (forced-colors: active) {
+    .popover__content {
+        outline: 4px solid;
+    }
+}

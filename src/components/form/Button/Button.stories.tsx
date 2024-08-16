@@ -3,7 +3,7 @@ import Button from './index'
 import { Meta, StoryObj } from '@storybook/block'
 
 export default {
-    title: '@next/form/Button',
+    title: '@applejelly/form/Button',
     component: Button,
 }
 

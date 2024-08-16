@@ -5,7 +5,7 @@ const urlSubfix = '@components'
 const modulePathPrompt = {
     type: 'input',
     name: 'modulePath',
-    default: '@Next',
+    default: '@applejelly',
     message: 'What is your modules path?',
 }
 

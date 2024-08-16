@@ -7,9 +7,9 @@
 import React, { useState, useEffect } from 'react'
 import cn from 'classnames'
 import './button.scss'
-import { TSHIRT_SIZE } from '@next/style/constant'
-import icons from '@next/style/icons'
-import Icon from '@next/components/common/Icon'
+import { TSHIRT_SIZE } from '@applejelly/style/constant'
+import icons from '@applejelly/style/icons'
+import Icon from '@applejelly/components/common/Icon'
 
 const BLOCK = 'form_button'
 

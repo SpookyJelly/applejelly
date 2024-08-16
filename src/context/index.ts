@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react'
 
-export const PopoverContext = createContext(null)
+export const PopoverContext = createContext<unknown | null>(null)
 export const SizeContext: React.Context<{ [key: string]: unknown }> =
     createContext({})
 export const useSizeContext = () => useContext(SizeContext)
