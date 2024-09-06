@@ -1,0 +1,45 @@
+.--dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    height: 30px;
+    color: black;
+
+    &.--is-highlighted.--is-activated {
+        background-color: var(--ui-interaction-primary);
+        color: white;
+    }
+    &.--is-highlighted {
+        background-color: var(--gray-200);
+        color: var(--gray-500);
+    }
+    & [data-description] {
+        color: var(--gray-125);
+    }
+    & [data-description].--is-highlighted {
+        color: white;
+    }
+    & span:first-of-type {
+        flex-grow: 1000;
+    }
+}
+
+// Autocomplete Tooltip
+
+.autocomplete-tooltip {
+    & .--content-wrapper {
+        display: flex;
+        gap: 3px;
+        color: var(--gray-75);
+        & .--icon-wrapper {
+            z-index: 10;
+            position: absolute;
+            top: -10px;
+            right: -5px;
+            background-color: white;
+            height: 13px;
+            width: 16px;
+            border-radius: 50px;
+        }
+    }
+}

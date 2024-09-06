@@ -283,10 +283,15 @@
     initial-value: 1200;
 }
 
+@property --ui-shadow-strength {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: rgba(0, 0, 0, 0.32);
+}
+
 // Dark Theme Color
 @media (prefers-color-scheme: dark) {
     :root {
-        --color: red;
         --ui-text-primary: #fff;
         --ui-text-secondary: var(--gray-150);
         --ui-text-disabled: var(--gray-125);
@@ -358,8 +363,11 @@
         --ui-status-success-contrast: var(--green-600);
         --ui-status-other: var(--gray-500);
         --ui-status-other-contrast: var(--gray-600);
-        --ui-interaction-primary: var(--blue-500);
-        --ui-interaction-primary-contrast: var(--blue-600);
+        // --ui-interaction-primary: var(--blue-500);
+        // --ui-interaction-primary: var(--blue-500);
+        --ui-interaction-primary-light: #eaf6fc;
+        --ui-interaction-primary: #a4cef7;
+        --ui-interaction-primary-contrast: #7ab5ea;
 
         --ui-border: var(--gray-75);
         --ui-border-contrast: var(--gray-200);
@@ -384,8 +392,10 @@
         --ui-status-success-contrast: var(--green-600);
         --ui-status-other: var(--gray-500);
         --ui-status-other-contrast: var(--gray-600);
-        --ui-interaction-primary: var(--blue-500);
-        --ui-interaction-primary-contrast: var(--blue-600);
+        --ui-interaction-primary-light: #eaf6fc;
+        --ui-interaction-primary: #a4cef7;
+        // --ui-interaction-primary-contrast: #006bc2 ;
+        --ui-interaction-primary-contrast: #7ab5ea;
 
         --ui-border: var(--gray-75);
         --ui-border-contrast: var(--gray-200);

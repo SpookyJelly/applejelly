@@ -148,6 +148,7 @@ function Tooltip({
                                 })}
                                 style={{ ...floatingStyles, zIndex: 2 }}
                             >
+                                {/* maxWidth를 없앤다 */}
                                 <div
                                     className={cn(BLOCK, '__tooltip-box')}
                                     style={{ ...styles }}
@@ -172,11 +173,11 @@ function Tooltip({
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
     contents?: React.ReactNode
-    delay: 'none' | 'short' | 'long'
+    delay?: 'none' | 'short' | 'long'
     isEnabled: boolean
     isAnimated?: boolean
     isOpen?: boolean
-    placement: Placement
+    placement?: Placement
     tooltipClassName?: string
     triggerTarget?: Element
 
@@ -184,7 +185,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     onHide?: (instance: unknown) => void
     onShow?: (instance: unknown) => void
 
-    display: 'inline' | 'inline-flex' | 'flex' | 'grid' | 'inline-block'
+    display?: 'inline' | 'inline-flex' | 'flex' | 'grid' | 'inline-block'
 }
 
 export default Tooltip

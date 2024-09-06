@@ -8,7 +8,6 @@ export default {
 }
 
 type Story = StoryObj<typeof LoadingIndicator>
-
 export const Basic: Story = {
     args: {},
 }
