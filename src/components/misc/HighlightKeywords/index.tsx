@@ -1,11 +1,59 @@
 /** * *
 HighlightKeywords
-* */ import React from 'react' import cn from 'classnames' import './highlight-keywords.scss' const BLOCK = 'misc_highlight-keywords' function
-HighlightKeywords({...rest}:Props) { return
-<div>HighlightKeywords</div>
+* */ import React from 'react'
+import cn from 'classnames'
+import './highlight-keywords.scss'
+import Highlighter from 'react-highlight-words'
+
+const BLOCK = 'misc_highlight-keywords'
+
+const parseStringToArray = (str: string) => {
+    if (typeof str !== 'string') return []
+
+    return (str.match(/"(?:\\"|[^"])+"|[^\s]+/gi) || []).map((element) =>
+        element
+            .replace(/(\\\\)/g, '\\')
+            .replace(/(\\")/g, '"')
+            .replace(/^"(.*)"$/g, '$1')
+    )
 }
 
-HighlightKeywords.defaultProps = { } interface Props { } export default
-HighlightKeywords
-export type { Props as
-HighlightKeywordsProps }
+function HighlightKeywords({
+    searchWords = '',
+    textToHighlight,
+    className,
+    highlightClassName,
+    isCaseSensitive,
+    ...rest
+}: Props) {
+    const parsedSearchWords = parseStringToArray(searchWords)
+    console.log('parsedSearchWords', parsedSearchWords)
+
+    return (
+        <span className={cn(BLOCK, className)}>
+            <Highlighter
+                highlightClassName={cn(
+                    BLOCK + '__highlighted',
+                    highlightClassName
+                )}
+                textToHighlight={textToHighlight}
+                autoEscape={true}
+                searchWords={parsedSearchWords}
+                caseSensitive={isCaseSensitive}
+                {...rest}
+            />
+        </span>
+    )
+}
+
+interface Props {
+    textToHighlight: string
+    className?: string
+    highlightClassName?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    highlightTag?: React.ComponentType<any>
+    isCaseSensitive?: boolean
+    searchWords?: string
+}
+export default HighlightKeywords
+export type { Props as HighlightKeywordsProps }
