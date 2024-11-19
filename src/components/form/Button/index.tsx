@@ -25,7 +25,7 @@ const IconElement = ({
     shouldScaleIcon: boolean
 }) => {
     if (isLoading) {
-        // TODO...
+        // TODO:
         return <p>Loading...</p>
     }
     if (icon) {

@@ -7,7 +7,7 @@ export { default as Tooltip } from './dialogs/Tooltip'
 export { default as ClickOutside } from './misc/ClickOutside'
 export { default as LoadingIndicator } from './misc/LoadingIndicator'
 export { default as Autocomplete } from './autocomplete/Autocomplete'
-export { default as AsyncAUtocomplete } from './autocomplete/AsyncAUtocomplete'
+export { default as AsyncAutocomplete } from './autocomplete/AsyncAutocomplete'
 export { default as Checkbox } from './form/Checkbox'
 export { default as HighlightKeywords } from './misc/HighlightKeywords'
 // COMPONENT EXPORTS

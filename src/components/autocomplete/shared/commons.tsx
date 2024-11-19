@@ -171,46 +171,46 @@ import './commons.scss'
 //   }
 // `;
 
-// // render functions
+// render functions
 // export const renderGuide = ({
-//   content,
-//   style,
+//     content,
+//     style,
 // }: {
-//   content?: React.ReactNode;
-//   style?: React.CSSProperties;
+//     content?: React.ReactNode
+//     style?: React.CSSProperties
 // } = {}) => {
-//   const defaultContent = (
-//     <span>
-//       <span>
-//         Use
-//         <kbd data-kind="icon">
-//           <Icon name="arrowUp" size="xxs" />
-//         </kbd>
-//         <kbd data-kind="icon">
-//           <Icon name="arrowDown" size="xxs" />
-//         </kbd>
-//         to navigate <kbd data-kind="text">Enter</kbd> to update query
-//       </span>
-//     </span>
-//   );
-//   const displayContent = content ?? defaultContent;
-//   return <Guide style={style}>{displayContent}</Guide>;
-// };
+//     const defaultContent = (
+//         <span>
+//             <span>
+//                 Use
+//                 <kbd data-kind="icon">
+//                     <Icon name="arrowUp" size="xxs" />
+//                 </kbd>
+//                 <kbd data-kind="icon">
+//                     <Icon name="arrowDown" size="xxs" />
+//                 </kbd>
+//                 to navigate <kbd data-kind="text">Enter</kbd> to update query
+//             </span>
+//         </span>
+//     )
+//     const displayContent = content ?? defaultContent
+//     return <Guide style={style}>{displayContent}</Guide>
+// }
 
-// export const renderClearButton = (
-//   props?: React.ButtonHTMLAttributes<HTMLButtonElement>,
-// ) => {
-//   return (
-//     <Button
-//       className="autocomplete-clear-button"
-//       icon="cancelCircled"
-//       isBorderless
-//       size="large"
-//       isDangerouslyNaked
-//       {...props}
-//     />
-//   );
-// };
+export const renderClearButton = (
+    props?: React.ButtonHTMLAttributes<HTMLButtonElement>
+) => {
+    return (
+        <Button
+            className="autocomplete-clear-button"
+            icon="cancelCircled"
+            isBorderless
+            size="lg"
+            isDangerouslyNaked
+            {...props}
+        />
+    )
+}
 
 // //NOTE: removed ToggleButton actions on Chips
 // export const renderSelectedItems = (
@@ -369,10 +369,12 @@ export const DropdownItem = ({
     return (
         <div
             className={cn(ROOT, {
-                '--isHighlighted': isHighlighted,
-                '--isActivated': isActivated,
-                '--isIncluded': isIncluded,
+                '--is-highlighted': isHighlighted,
+                '--is-activated': isActivated,
+                '--is-included': isIncluded,
             })}
+            onMouseOver={rest.onMouseOver}
+            onClick={rest.onClick}
         >
             {rest.children}
             <div>

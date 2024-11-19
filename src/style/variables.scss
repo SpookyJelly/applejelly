@@ -365,9 +365,11 @@
         --ui-status-other-contrast: var(--gray-600);
         // --ui-interaction-primary: var(--blue-500);
         // --ui-interaction-primary: var(--blue-500);
-        --ui-interaction-primary-light: #eaf6fc;
-        --ui-interaction-primary: #a4cef7;
-        --ui-interaction-primary-contrast: #7ab5ea;
+        --ui-interaction-secondary: #eaf6fc;
+        --ui-interaction-secondary-contast: #d4ecf9;
+        // --ui-interaction-primary: #a4cef7;
+        --ui-interaction-primary: #006bc2;
+        --ui-interaction-primary-contrast: #0953bf;
 
         --ui-border: var(--gray-75);
         --ui-border-contrast: var(--gray-200);

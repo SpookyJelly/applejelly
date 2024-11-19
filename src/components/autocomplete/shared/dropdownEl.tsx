@@ -160,6 +160,7 @@ export function renderFakePanel({
     return items.map((item, idx) => {
         const label = R.prop(displayProps.label, item)
         const amount = R.prop(displayProps.amount, item)
+
         return (
             <DropdownItem
                 key={idx}
