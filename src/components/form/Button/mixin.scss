@@ -93,7 +93,7 @@
         }
 
         &#{$button}--is-primary {
-            --_button-border--hover: initial;
+            --_button-border--hover: initial !important;
         }
     }
 
@@ -103,7 +103,7 @@
         --_button-color-contrast-background: var(
             --button-success-background-contrast
         );
-        --_button-border--hover: currentColor;
+        // --_button-border--hover: currentColor;
         --_button-text--hover: initial;
         --_button-bg--disabled: var(--button-success-background-disabled);
         --_button-text: var(--_button-color-contrast);
@@ -148,7 +148,8 @@
     }
 
     &--is-primary {
-        --_button-text: var(--ui-text-knockout);
+        // --_button-text: var(--ui-text-knockout);
+        --_button-text: var(--ui-white);
         --_button-text--hover: initial;
         --_button-bg: var(--_button-color-main);
         --_button-bg--hover: var(--_button-color-contrast-background);
@@ -177,7 +178,8 @@
     }
 
     &--is-borderless[class] {
-        --_button-text--hover: var(--ui-text-knockout);
+        // --_button-text--hover: var(--ui-text-knockout);
+        --_button-text--hover: var(--ui-white);
         --_button-bg--hover: var(--_button-color-main);
         --_button-bg--active: var(--_button-color-contrast-background);
     }

@@ -10,34 +10,47 @@ import './button.scss'
 import { TSHIRT_SIZE } from '@applejelly/style/constant'
 import icons from '@applejelly/style/icons'
 import Icon from '@applejelly/components/common/Icon'
+import LoadingIndicator from '@applejelly/components/misc/LoadingIndicator'
+import { background } from '@storybook/theming'
 
-const BLOCK = 'form_button'
+const ROOT = 'form_button'
 
 const IconElement = ({
     isLoading,
     icon,
     iconClassName,
     shouldScaleIcon,
+    size,
+
+    isHighlighted,
 }: {
     isLoading: Props['isLoading']
     icon: Props['icon']
     iconClassName?: string
     shouldScaleIcon: boolean
+    size: Props['size']
+    isHighlighted: boolean
 }) => {
+    const highlightStyle = {
+        backgroundColor: 'initial',
+        boxShadow: 'none',
+    }
     if (isLoading) {
-        // TODO:
-        return <p>Loading...</p>
+        return <LoadingIndicator size={size} className={cn(`${ROOT}__icon`)} />
     }
     if (icon) {
         return (
-            <Icon
-                name={icon}
-                title=""
-                size={'md'}
-                fill="currentColor"
-                isScaleDown={shouldScaleIcon}
-                className={cn(`${BLOCK}__icon`, iconClassName)}
-            />
+            <div className={cn(ROOT + '__icon-wrapper')}>
+                <Icon
+                    style={isHighlighted ? highlightStyle : {}}
+                    name={icon}
+                    title=""
+                    size={size}
+                    fill="currentColor"
+                    isScaleDown={shouldScaleIcon}
+                    className={cn(`${ROOT}__icon`, iconClassName, 'icon')}
+                />
+            </div>
         )
     }
 
@@ -68,7 +81,10 @@ function Button({
     size = 'md',
     icon,
     featureStatus,
-    iconPosition,
+    iconPosition = 'left',
+    ariaAttrs,
+    dataAttrs,
+    ariaLabel = ariaAttrs ? ariaAttrs['aria-label'] : undefined,
     ...rest
 }: Props) {
     const [isHoveredState, setIsHoveredState] = useState(false)
@@ -77,49 +93,63 @@ function Button({
     // const sizeValue = size  || contextSize
 
     const isButtonActive = isPrimary || isActive
-    // const iconPosition = 'left' // FIX it later
-    const iconClassName = label
-        ? `${BLOCK}__icon--position-${iconPosition}`
-        : ''
+    const iconClassName = label ? `${ROOT}__icon--position-${iconPosition}` : ''
     const shouldScaleIcon =
         !(isBorderless || isDangerouslyNaked || isNaked) || !label
 
+    const buttonProps = {
+        ...ariaAttrs,
+        ...dataAttrs,
+        'aria-label': ariaLabel,
+        className: cn(
+            ROOT,
+            `${ROOT}--${size}`,
+            `${ROOT}--${level}`,
+            // extraClasses,
+            {
+                // [`${ROOT}--has-icon-only`]: !label && !featureStatusLabel,
+                [`${ROOT}--has-icon-only`]: !label,
+                [`${ROOT}--has-ellipsis`]: hasEllipsis,
+                [`${ROOT}--is-borderless`]: isBorderless || isShade,
+                [`${ROOT}--is-naked`]:
+                    (isDangerouslyNaked || isNaked) && !isShade,
+                [`${ROOT}--is-primary`]: isButtonActive,
+                [`${ROOT}--is-shade`]: isShade,
+                [`${ROOT}--is-full-width`]: isFullWidth,
+                [`${ROOT}--is-active`]: isActive,
+                [`${ROOT}--is-hovered`]: isHoveredState,
+                [`${ROOT}--is-disabled`]: isDisabled || isLoading,
+            },
+            className
+        ),
+        title,
+        type,
+        disabled: isDisabled || isLoading,
+        autoFocus,
+        ref: innerRef,
+        onPointerEnter: () => setIsHoveredState(true),
+        onPointerLeave: () => setIsHoveredState(false),
+        ...rest,
+    }
+
+    // if (isLoading) {
+    //     <LoadingIndicator size={size} className={cn(`${ROOT}`)} />
+    // }
+
     return (
-        <button
-            className={cn(
-                BLOCK,
-                `${BLOCK}--${size}`,
-                `${BLOCK}--${level}`,
-                BLOCK + '--default',
-                {
-                    [`${BLOCK}--is-primary`]: isButtonActive,
-                    [`${BLOCK}--is-active`]: isActive,
-                    [`${BLOCK}--has-icon-only`]: !label,
-                    [`${BLOCK}--is-borderless`]: isBorderless || isShade,
-                    [`${BLOCK}--is-naked`]: isNaked,
-                    [`${BLOCK}--is-shade`]: isShade,
-                    [`${BLOCK}--is-full-width`]: isFullWidth,
-                    [`${BLOCK}--is-hovered`]: isHoveredState,
-                    [`${BLOCK}--is-disabled`]: isDisabled || isLoading,
-                }
-            )}
-            disabled={isDisabled || isLoading}
-            ref={innerRef}
-            autoFocus={autoFocus}
-            title={title}
-            type={type}
-            onPointerEnter={() => setIsHoveredState(true)}
-            onPointerLeave={() => setIsHoveredState(false)}
-            {...rest}
-        >
+        <button {...buttonProps}>
             <IconElement
                 icon={icon}
                 isLoading={isLoading}
                 iconClassName={iconClassName}
                 shouldScaleIcon={shouldScaleIcon}
+                size={size}
+                isHighlighted={Boolean(isHovered || isActive)}
+                // isHovered={isHovered}
+                // isActive={isActive}
             />
             <span
-                className={cn(`${BLOCK}__content`, {
+                className={cn(`${ROOT}__content`, {
                     __ellipsis: hasEllipsis,
                 })}
             >
@@ -156,6 +186,11 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
     // iconProps;
     innerRef?: React.Ref<HTMLButtonElement>
     hasEllipsis?: boolean
+
+    // DOM PROPS
+    ariaAttrs?: React.AriaAttributes
+    dataAttrs?: Record<`data-${string}`, string>
+    ariaLabel?: string
 }
 
 export default Button

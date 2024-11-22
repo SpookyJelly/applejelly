@@ -9,11 +9,11 @@ import * as R from 'ramda'
 import cn from 'classnames'
 import './autocomplete.scss'
 import AutocompleteProps, { PanelActionTypes } from '../shared/types'
-// import {
-//     AutoCompleteTooltip,
-//     renderClearButton,
-//     renderGuide,
-// } from '../shared/commons'
+import {
+    AutoCompleteTooltip,
+    renderClearButton,
+    renderGuide,
+} from '../shared/commons'
 import { Item } from '../shared/data'
 import {
     FloatingPortal,
@@ -36,7 +36,6 @@ import {
 import { useCombobox } from 'downshift'
 import { renderDropdown, renderFakePanel } from '../shared/dropdownEl'
 import { useSource } from '../shared/hooks'
-import { AutoCompleteTooltip } from '../shared/commons'
 
 const BLOCK = 'autocomplete_autocomplete'
 function Autocomplete({
@@ -276,7 +275,7 @@ function Autocomplete({
                                     : ''
                             }
                             readOnly
-                            className="placeholder"
+                            className="placeholder --override-gray"
                             onClick={() => {
                                 setPanelMode('list')
                                 dispatch({ type: PanelActionTypes.CLEAR })
@@ -288,25 +287,24 @@ function Autocomplete({
                                 icon="caretDown"
                                 isDisabled={rest.isReadOnly}
                                 size="xs"
-                                isDangerouslyNaked
+                                isNaked
                                 onClick={() => {
                                     setPanelMode('category')
                                     dispatch({ type: PanelActionTypes.CLEAR })
                                     comboBox.toggleMenu()
                                 }}
-                                className="--toggle-menu"
+                                className="--toggle-menu --override-gray"
                             />
                         )}
-                        {/* {hasClearButton &&
+                        {hasClearButton &&
                             renderClearButton({
-                                style: { right: 20 },
                                 onClick: (e) => {
                                     e.stopPropagation()
                                     e.preventDefault()
                                     setInputValue('')
                                     setSelectedItems([])
                                 },
-                            })} */}
+                            })}
                     </div>
                 </div>
                 <div style={{ display: 'none' }} {...comboBox.getMenuProps()} />
@@ -378,14 +376,7 @@ function Autocomplete({
                                                     selectedItems,
                                                 })}
                                             </div>
-                                            {/* {rest.hasGuide &&
-                                                renderGuide({
-                                                    style: {
-                                                        border: 'none',
-                                                        borderTop:
-                                                            'solid 1px var(--gray-125)',
-                                                    },
-                                                })} */}
+                                            {rest.hasGuide && renderGuide({})}
                                         </div>
                                     </>
                                 )}
@@ -633,7 +624,7 @@ function Autocomplete({
                                                     </div>
                                                 </div>
                                             </div>
-                                            {/* {rest.hasGuide && renderGuide()} */}
+                                            {rest.hasGuide && renderGuide()}
                                         </div>
                                     </>
                                 )}
@@ -646,7 +637,16 @@ function Autocomplete({
     )
 }
 
-Autocomplete.defaultProps = {}
+Autocomplete.defaultProps = {
+    hasCaretDownIcon: true,
+    hasClearButton: true,
+    hasGuide: false,
+    overflowerType: 'gradient',
+    isSingle: true,
+    size: 'md',
+    placeholder: 'Select',
+    minSearchLength: 2,
+}
 
 type ExcludedProps =
     | 'hasDetail'

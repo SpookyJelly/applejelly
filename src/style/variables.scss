@@ -265,6 +265,39 @@
     initial-value: rgba(0, 0, 0, 0.32);
 }
 
+@property --ui-interaction-primary {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #006bc2;
+}
+@property --ui-interaction-primary-contrast {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #0953bf;
+}
+
+@property --ui-white {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #fff;
+}
+@property --ui-black {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #000;
+}
+
+@property --ui-interaction-secondary {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #eaf6fc;
+}
+@property --ui-interaction-secondary-contast {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #d4ecf9;
+}
+
 // Z index
 
 @property --z-index-lv1 {
@@ -363,13 +396,6 @@
         --ui-status-success-contrast: var(--green-600);
         --ui-status-other: var(--gray-500);
         --ui-status-other-contrast: var(--gray-600);
-        // --ui-interaction-primary: var(--blue-500);
-        // --ui-interaction-primary: var(--blue-500);
-        --ui-interaction-secondary: #eaf6fc;
-        --ui-interaction-secondary-contast: #d4ecf9;
-        // --ui-interaction-primary: #a4cef7;
-        --ui-interaction-primary: #006bc2;
-        --ui-interaction-primary-contrast: #0953bf;
 
         --ui-border: var(--gray-75);
         --ui-border-contrast: var(--gray-200);
@@ -381,6 +407,8 @@
         --ui-text-secondary: var(--gray-125);
         --ui-text-disabled: var(--gray-150);
         --ui-text-knockout: #fff;
+        // --ui-knockout: #303030;
+        --ui-knockout: #545454;
     }
 }
 
@@ -394,20 +422,17 @@
         --ui-status-success-contrast: var(--green-600);
         --ui-status-other: var(--gray-500);
         --ui-status-other-contrast: var(--gray-600);
-        --ui-interaction-primary-light: #eaf6fc;
-        --ui-interaction-primary: #a4cef7;
-        // --ui-interaction-primary-contrast: #006bc2 ;
-        --ui-interaction-primary-contrast: #7ab5ea;
 
         --ui-border: var(--gray-75);
         --ui-border-contrast: var(--gray-200);
 
-        --ui-background: var(--gray-25);
+        --ui-background: #fff;
 
         --ui-text: #000;
         --ui-text-primary: #000;
         --ui-text-secondary: var(--gray-125);
         --ui-text-disabled: var(--gray-150);
-        --ui-text-knockout: #fff;
+        --ui-text-knockout: #000;
+        --ui-knockout: #fff;
     }
 }

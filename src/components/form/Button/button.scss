@@ -188,6 +188,7 @@
   &:not(#{$button}--is-disabled)#{$button}--is-borderless:active #{$button}__feature-status-label, 
   &:not(#{$button}--is-disabled)#{$button}--is-borderless:focus.focus-visible #{$button}__feature-status-label, 
   &:not(#{$button}--is-disabled)#{$button}--is-borderless:hover #{$button}__feature-status-label {
-    color: var(--ui-text-knockout);
+    // color: var(--ui-text-knockout);
+    color: var(--ui-white);
   }
 }

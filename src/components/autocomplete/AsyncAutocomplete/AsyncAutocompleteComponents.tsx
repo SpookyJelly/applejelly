@@ -266,13 +266,3 @@ interface ExpandableInputWrapperProps extends React.HTMLProps<HTMLDivElement> {
     overflowerType: 'gradient' | 'ellipsis'
     keydownHandler?: (e: React.KeyboardEvent<any>) => void
 }
-
-/**
- * Guide Component
- */
-
-export const Guide = ({ hasGuide }: { hasGuide: boolean }) => {
-    const style = { border: 'none', borderTop: 'solid 1px var(--gray-125)' }
-    // return hasGuide && renderGuide({ style })
-    return null
-}

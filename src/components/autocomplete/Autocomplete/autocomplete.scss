@@ -55,8 +55,8 @@
         flex-grow: 1;
 
         &.--focus {
-            border-color: var(--ui-interaction-primary-contrast);
-            background-color: var(--ui-interaction-primary-light);
+            border-color: var(--ui-interaction-primary);
+            background-color: var(--ui-interaction-secondary);
         }
 
         &.--readonly {
@@ -121,5 +121,11 @@
     &__indicator {
         padding: 10px;
         color: var(--gray-300);
+    }
+    & .--override-gray {
+        // color: rgb(172, 172, 172) !important;
+        &::placeholder {
+            color: rgb(172, 172, 172) !important;
+        }
     }
 }

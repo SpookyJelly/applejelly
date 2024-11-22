@@ -172,41 +172,44 @@ import './commons.scss'
 // `;
 
 // render functions
-// export const renderGuide = ({
-//     content,
-//     style,
-// }: {
-//     content?: React.ReactNode
-//     style?: React.CSSProperties
-// } = {}) => {
-//     const defaultContent = (
-//         <span>
-//             <span>
-//                 Use
-//                 <kbd data-kind="icon">
-//                     <Icon name="arrowUp" size="xxs" />
-//                 </kbd>
-//                 <kbd data-kind="icon">
-//                     <Icon name="arrowDown" size="xxs" />
-//                 </kbd>
-//                 to navigate <kbd data-kind="text">Enter</kbd> to update query
-//             </span>
-//         </span>
-//     )
-//     const displayContent = content ?? defaultContent
-//     return <Guide style={style}>{displayContent}</Guide>
-// }
+export const renderGuide = ({
+    content,
+    style,
+}: {
+    content?: React.ReactNode
+    style?: React.CSSProperties
+} = {}) => {
+    const defaultContent = (
+        <span>
+            <span>
+                Use
+                <kbd data-kind="icon">
+                    <Icon name="arrowUp" size="xxs" />
+                </kbd>
+                <kbd data-kind="icon">
+                    <Icon name="arrowDown" size="xxs" />
+                </kbd>
+                to navigate <kbd data-kind="text">Enter</kbd> to update query
+            </span>
+        </span>
+    )
+    const displayContent = content ?? defaultContent
+    return (
+        <div className="__guide" style={style}>
+            {displayContent}
+        </div>
+    )
+}
 
 export const renderClearButton = (
     props?: React.ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
     return (
         <Button
-            className="autocomplete-clear-button"
+            className="autocomplete-clear-button --override-gray"
             icon="cancelCircled"
-            isBorderless
-            size="lg"
             isDangerouslyNaked
+            size="md"
             {...props}
         />
     )

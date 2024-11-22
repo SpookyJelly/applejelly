@@ -23,5 +23,6 @@ const sample = [
 export const Basic: Story = {
     args: {
         data: sample,
+        hasCaretDownIcon: true,
     },
 }

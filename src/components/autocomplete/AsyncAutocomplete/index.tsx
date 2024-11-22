@@ -23,7 +23,7 @@ import ClickOutside from '../../misc/ClickOutside'
 import {
     AutoCompleteTooltip,
     renderClearButton,
-    // renderGuide,
+    renderGuide,
 } from '../shared/commons'
 import { fakePanelReducer } from '../shared/actions'
 import {
@@ -36,13 +36,12 @@ import {
     ExpandableInputWrapper,
     FakeSubTypePanelComponent,
     FakeTypePanelComponent,
-    Guide,
     RecentSearchPanelComponent,
 } from '../AsyncAutocomplete/AsyncAutocompleteComponents'
 import { useAsyncComboBox } from './hooks'
 import { convertCategoryPropsToTree } from './utils'
 
-export const ROOT_CLASS = 'autocomplete_async-autocomplete'
+export const ROOT = 'autocomplete_async-autocomplete'
 
 function AsyncAutoComplete({
     creatable,
@@ -203,10 +202,10 @@ function AsyncAutoComplete({
     })
 
     const classes = classNames(
-        ROOT_CLASS,
+        ROOT,
         {
-            [`${ROOT_CLASS}--has-clear-button`]: hasClearButton,
-            [`${ROOT_CLASS}--is-open`]: comboBox.isOpen,
+            [`${ROOT}--has-clear-button`]: hasClearButton,
+            [`${ROOT}--is-open`]: comboBox.isOpen,
         },
         {
             ['--sm']: rest.size === 'sm',
@@ -236,12 +235,12 @@ function AsyncAutoComplete({
                     type={type}
                     displayProperties={rest.displayProperties}
                     fpState={fpState}
-                    rootClassName={ROOT_CLASS}
+                    rootClassName={ROOT}
                 />
             )
         if (inputValue.length < rest.minSearchLength)
             return (
-                <div className={classNames(ROOT_CLASS + '__indicator')}>
+                <div className={classNames(ROOT + '__indicator')}>
                     Type {rest.minSearchLength - inputValue.length} more
                     characters to search
                 </div>
@@ -265,17 +264,13 @@ function AsyncAutoComplete({
                 validationMessage={rest.validationMessage}
             >
                 <ExpandableInputWrapper
-                    rootClass={ROOT_CLASS}
+                    rootClass={ROOT}
                     isOpen={false}
                     overflowerType={rest.overflowerType}
                 >
                     {selectedItems.map((item, i) => (
                         <div key={i}>
-                            <p
-                                className={classNames(
-                                    ROOT_CLASS + '__ellipsis'
-                                )}
-                            >
+                            <p className={classNames(ROOT + '__selected-item')}>
                                 {item[rest.displayProperties.id]}
                             </p>
                         </div>
@@ -287,7 +282,7 @@ function AsyncAutoComplete({
                             selectedItems.length === 0 ? rest.placeholder : ''
                         }
                         readOnly
-                        className="placeholder"
+                        className="placeholder --override-gray"
                         onClick={() => {
                             setPanelMode('list')
                             dispatch({ type: PanelActionTypes.CLEAR })
@@ -299,21 +294,18 @@ function AsyncAutoComplete({
                             icon="caretDown"
                             isDisabled={rest.isReadOnly}
                             size="xs"
-                            isNaked
-                            // isBorderless
-                            // isShade
-                            // isDangerouslyNaked
+                            isDangerouslyNaked
                             onClick={() => {
                                 setPanelMode('category')
                                 dispatch({ type: PanelActionTypes.CLEAR })
                                 comboBox.toggleMenu()
                             }}
-                            className="--toggle-menu"
+                            className="--toggle-menu --override-gray"
                         />
                     )}
                     {hasClearButton &&
                         renderClearButton({
-                            style: { right: 20 },
+                            // style: { right: 20 },
                             onClick: (e) => {
                                 e.stopPropagation()
                                 e.preventDefault()
@@ -335,12 +327,12 @@ function AsyncAutoComplete({
                                     zIndex: 1500,
                                     minWidth: panelMode === 'list' ? 200 : 500,
                                 }}
-                                className={classNames(ROOT_CLASS, '--shadow')}
+                                className={classNames(ROOT, '--shadow')}
                             >
                                 {panelMode === 'list' && (
                                     <>
                                         <ExpandableInputWrapper
-                                            rootClass={ROOT_CLASS}
+                                            rootClass={ROOT}
                                             isOpen={true}
                                             keydownHandler={
                                                 keydownHandler['list']
@@ -365,12 +357,7 @@ function AsyncAutoComplete({
                                         {/* Value */}
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__menu',
-                                                {
-                                                    '--guide': Boolean(
-                                                        rest.hasGuide
-                                                    ),
-                                                }
+                                                ROOT + '__menu'
                                             )}
                                         >
                                             <div
@@ -378,25 +365,20 @@ function AsyncAutoComplete({
                                                     ref: parentRef,
                                                 })}
                                                 className={classNames(
-                                                    ROOT_CLASS +
-                                                        '__custom-scroll',
-                                                    ROOT_CLASS + '__list'
+                                                    ROOT + '__custom-scroll',
+                                                    ROOT + '__list'
                                                 )}
                                             >
                                                 {valuePanelRenderer('list')}
                                             </div>
-                                            <Guide
-                                                hasGuide={Boolean(
-                                                    rest.hasGuide
-                                                )}
-                                            />
+                                            {rest.hasGuide && renderGuide({})}
                                         </div>
                                     </>
                                 )}
                                 {panelMode === 'category' && (
                                     <div>
                                         <ExpandableInputWrapper
-                                            rootClass={ROOT_CLASS}
+                                            rootClass={ROOT}
                                             isOpen={true}
                                             overflowerType={rest.overflowerType}
                                             keydownHandler={
@@ -415,7 +397,6 @@ function AsyncAutoComplete({
                                                                   typePanelRef,
                                                                   subTypePanelRef,
                                                                   dispatch,
-                                                                  // rest.categoryProps,
                                                                   treeCategoryProps
                                                               )
                                                           }
@@ -438,29 +419,23 @@ function AsyncAutoComplete({
 
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__menu',
-                                                {
-                                                    '--guide': Boolean(
-                                                        rest.hasGuide
-                                                    ),
-                                                }
+                                                ROOT + '__menu'
                                             )}
                                         >
                                             <div className="--flex">
                                                 {/* Type Panel  */}
                                                 <FakeTypePanelComponent
                                                     ref={typePanelRef}
-                                                    rootClass={ROOT_CLASS}
+                                                    rootClass={ROOT}
                                                     panelClass={panelClasses}
                                                     fpState={fpState}
                                                     dispatch={dispatch}
-                                                    // items={rest.categoryProps}
                                                     items={treeCategoryProps}
                                                 />
                                                 {/* SubType */}
                                                 <FakeSubTypePanelComponent
                                                     ref={subTypePanelRef}
-                                                    rootClass={ROOT_CLASS}
+                                                    rootClass={ROOT}
                                                     panelClass={panelClasses}
                                                     fpState={fpState}
                                                     items={
@@ -475,13 +450,13 @@ function AsyncAutoComplete({
                                                     className={classNames(
                                                         panelClasses +
                                                             '--value',
-                                                        ROOT_CLASS + '__menu',
+                                                        ROOT + '__menu',
                                                         '--category'
                                                     )}
                                                 >
                                                     <div
                                                         className={classNames(
-                                                            ROOT_CLASS +
+                                                            ROOT +
                                                                 '__custom-scroll'
                                                         )}
                                                         {...comboBox.getMenuProps(
@@ -496,11 +471,7 @@ function AsyncAutoComplete({
                                                     </div>
                                                 </div>
                                             </div>
-                                            <Guide
-                                                hasGuide={Boolean(
-                                                    rest.hasGuide
-                                                )}
-                                            />
+                                            {rest.hasGuide && renderGuide({})}
                                         </div>
                                     </div>
                                 )}

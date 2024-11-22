@@ -4,13 +4,14 @@
     padding: 4px 8px;
     height: 30px;
     color: black;
+    cursor: pointer;
 
     &.--is-highlighted.--is-activated {
         background-color: var(--ui-interaction-primary);
         color: white;
     }
     &.--is-highlighted {
-        background-color: var(--gray-200);
+        background-color: var(--gray-100);
         color: var(--gray-500);
     }
     & [data-description] {
@@ -40,6 +41,25 @@
             height: 13px;
             width: 16px;
             border-radius: 50px;
+        }
+    }
+}
+
+.__guide {
+    background-color: var(--ui-white);
+    padding: 7px 10px 10px 10px;
+    border: none;
+    border-top: solid 1px var(--gray-125);
+
+    & kbd {
+        border-radius: 4px;
+        border: solid 1px var(--gray-75);
+        margin: 0 4px;
+        &[data-kind='icon'] {
+            padding: 2px 2px;
+        }
+        &[data-kind='text'] {
+            padding: 1px 5px;
         }
     }
 }
