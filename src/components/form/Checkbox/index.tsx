@@ -10,17 +10,20 @@ import Icon from '@applejelly/components/common/Icon'
 import './checkbox.scss'
 import { TSHIRT_SIZE } from '@applejelly/style/constant'
 import { IconsProps } from '@storybook/components'
-
 const BLOCK = 'form_checkbox'
 function Checkbox({
     isDisabled = false,
-    isChecked = false,
+    isChecked,
     isReadOnly = false,
     onChange = () => {},
     isIndeterminate = false,
-    inputAttributes,
+    // inputAttributes,
     id,
+    size = 'md',
     value,
+    label,
+    hasOverflower,
+    isMultiline,
     ...rest
 }: Props) {
     const inputRef = React.useRef<HTMLInputElement>(null)
@@ -34,11 +37,13 @@ function Checkbox({
         rest.className
     )
 
-    const iconName = React.useMemo<IconsProps['name']>(() => {
-        if (isIndeterminate) return 'minusSqared'
+    const iconName = React.useMemo(() => {
+        if (isIndeterminate) return 'minusSquared'
         if (isChecked) return 'checkboxChecked'
         return 'checkboxUnchecked'
     }, [isIndeterminate, isChecked])
+
+    // const sizeValue = size === 'inherit' ? undefined : size || 'md'
 
     React.useEffect(() => {
         if (inputRef.current) {
@@ -52,32 +57,45 @@ function Checkbox({
             e.stopPropagation()
         }
     }
+    const _hasOverflower =
+        hasOverflower || !isMultiline || 'string' == typeof label
+    const LabelInner = _hasOverflower ? Overflower : Text
 
     return (
         <span {...rest} className={classes} tabIndex={-1}>
             <input
                 ref={inputRef}
                 className={cn(`${BLOCK}__input`)}
-                id={rest.id}
-                {...inputAttributes}
+                id={id}
+                checked={isChecked}
+                onChange={onChange}
+                // {...inputAttributes}
+                type="checkbox"
             />
+            <Icon
+                name={iconName}
+                size={size}
+                className={`${BLOCK}__icon checkbox__icon`}
+            />
+            {label && <LabelInner>{label}</LabelInner>}
         </span>
     )
 }
 
 Checkbox.defaultProps = {}
 
-interface Props extends React.HTMLAttributes<HTMLLabelElement> {
+interface Props extends React.HTMLAttributes<HTMLInputElement> {
     id?: string
     hasBaselineAlign?: boolean
-    //hasOverflower
+    hasOverflower?: boolean
+    isMultiline?: boolean
     isChecked?: boolean
     isDisabled?: boolean
     isReadOnly?: boolean
     isIndeterminate?: boolean
     label?: React.ReactNode
     size: TSHIRT_SIZE | 'inherit'
-    inputAttributes?: React.InputHTMLAttributes<HTMLInputElement>
+    // inputAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     value: string
 }
 

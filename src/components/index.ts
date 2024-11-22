@@ -10,4 +10,5 @@ export { default as Autocomplete } from './autocomplete/Autocomplete'
 export { default as AsyncAutocomplete } from './autocomplete/AsyncAutocomplete'
 export { default as Checkbox } from './form/Checkbox'
 export { default as HighlightKeywords } from './misc/HighlightKeywords'
+export { default as Overflower } from './layout/Overflower'
 // COMPONENT EXPORTS
