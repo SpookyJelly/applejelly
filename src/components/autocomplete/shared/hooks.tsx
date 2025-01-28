@@ -37,7 +37,8 @@ export const useSource = (data: Item[]) => {
     const source = React.useMemo(() => {
         return R.pipe(
             R.groupBy<Item>(R.prop('type')),
-            R.mapObjIndexed((item, key) => {
+            R.mapObjIndexed((i, key) => {
+                const item = i || []
                 const subType = R.pipe(
                     R.collectBy<Item, string>(R.prop('subType')),
                     R.map((x) => ({ value: x[0].subType, count: x.length })),

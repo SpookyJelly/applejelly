@@ -29,5 +29,15 @@ export const HEIGHT_VALUES = {
     xxl: 52,
 }
 
+export const FONT_SIZE = {
+    xxs: '8px',
+    xs: '11px',
+    sm: '12px',
+    md: '13px',
+    lg: '15px',
+    xl: '18px',
+    xxl: '23px',
+} as const
+
 export type SPACING_SIZE = keyof typeof SPACING_VALUES
 export type TSHIRT_SIZE = keyof typeof FONT_SIZE_VALUES | 'inherit'
