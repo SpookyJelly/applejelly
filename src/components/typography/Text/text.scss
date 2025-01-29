@@ -1,0 +1,226 @@
+.typography_text {
+  font-family: NotoSans, Lucida Grande, Lucida Sans Unicode, sans-serif;
+  font-weight: var(--ui-header-font-weight, inherit);
+  line-height: var(--ui-header-line-height, var(--ui-base-line-height, inherit));
+
+  &--default {
+    color: var(--ui-text);
+  }
+
+  &--secondary[class] {
+    color: var(--ui-text-secondary)
+  }
+  
+  &--tertiary[class] {
+    color: var(--ui-text-tertiary)
+  }
+  
+  &--knockout[class] {
+    color: var(--ui-text-knockout)
+  }
+  
+  &--success[class] {
+    color: var(--ui-status-success)
+  }
+  
+  &--warning[class] {
+    color: var(--ui-status-warning)
+  }
+  
+  &--danger[class] {
+    color: var(--ui-status-danger)
+  }
+  
+  &--disabled[class] {
+    color: var(--ui-text-disabled)
+  }
+
+  &--normal {
+    font-weight: 400
+  }
+  
+  &--bold[class] {
+    font-weight: 600
+  }
+  
+  &--thin[class] {
+    font-weight: 300
+  }
+  
+  &--is-italic[class] {
+    font-style: italic
+  }
+
+  &--is-monospace[class] {
+    font-family: Roboto Mono, Menlo, Liberation Mono, Courier, monospace;
+    letter-spacing: -.01em;
+  }
+
+  &--has-ellipsis {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &--xxs {
+    font-size: 8px;
+    font-size: var(--ui-header-font-size,8px)
+  }
+  
+  &--xs {
+    font-size: 11px;
+    font-size: var(--ui-header-font-size,11px)
+  }
+  
+  &--sm {
+    font-size: 12px;
+    font-size: var(--ui-header-font-size,12px)
+  }
+  
+  &--md {
+    font-size: 13px;
+    font-size: var(--ui-header-font-size,13px)
+  }
+  
+  &--lg {
+    font-size: 15px;
+    font-size: var(--ui-header-font-size,15px)
+  }
+  
+  &--xl {
+    font-size: 18px;
+    font-size: var(--ui-header-font-size,18px)
+  }
+  
+  &--xxl {
+    font-size: 23px;
+    font-size: var(--ui-header-font-size,23px)
+  }
+
+  &--left {
+    text-align: left;
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--right {
+    text-align: right;
+  }
+
+  &--none {
+    text-transform: none;
+  }
+
+  &--lowercase {
+    text-transform: lowercase;
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+
+  &--capitalize {
+    text-transform: capitalize;
+  }
+
+  &--ow-normal {
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  &--ow-break-word {
+    overflow-wrap: break-word;
+  }
+
+  &--ow-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  &--ws-normal {
+    white-space: normal;
+  }
+
+  &--ws-nowrap {
+    white-space: nowrap;
+  }
+
+  &--ws-pre {
+    white-space: pre;
+  }
+
+  &--ws-pre-wrap {
+    white-space: pre-wrap;
+  }
+
+  &--ws-pre-line {
+    white-space: pre-line;
+  }
+
+  &--not-editorial-copy {
+    --ui-base-font-size: initial;
+    --ui-base-line-height: initial;
+    --ui-header-font-size: initial;
+    --ui-header-line-height: initial;
+    --ui-header-font-weight: initial;
+    --ui-header-letter-spacing: initial;
+    --ui-header-text-transform: initial;
+    --ui-custom-reduced-vertical-spacing: 1;
+    --ui-custom-reduced-vertical-line-height: 1;
+    --ui-vertical-spacing-modifier: 1;
+    --ui-header-text-wrap: initial;
+    --ui-header-size-h1: initial;
+    --ui-header-lh-h1: initial;
+    --ui-header-ls-h1: initial;
+    --ui-header-tt-h1: initial;
+    --ui-header-fw-h1: initial;
+    --ui-header-size-h2: initial;
+    --ui-header-lh-h2: initial;
+    --ui-header-ls-h2: initial;
+    --ui-header-tt-h2: initial;
+    --ui-header-fw-h2: initial;
+    --ui-header-size-h3: initial;
+    --ui-header-lh-h3: initial;
+    --ui-header-ls-h3: initial;
+    --ui-header-tt-h3: initial;
+    --ui-header-fw-h3: initial;
+    --ui-header-size-h4: initial;
+    --ui-header-lh-h4: initial;
+    --ui-header-ls-h4: initial;
+    --ui-header-tt-h4: initial;
+    --ui-header-fw-h4: initial;
+    --ui-header-size-h5: initial;
+    --ui-header-lh-h5: initial;
+    --ui-header-ls-h5: initial;
+    --ui-header-tt-h5: initial;
+    --ui-header-fw-h5: initial;
+    --ui-header-size-h6: initial;
+    --ui-header-lh-h6: initial;
+    --ui-header-ls-h6: initial;
+    --ui-header-tt-h6: initial;
+    --ui-header-fw-h6: initial;
+    --ui-hr-width: initial;
+    --ui-max-width: initial;
+    --ui-max-width-margin: initial;
+  }
+
+  &--not-editorial-copy > * {
+    --ui-custom-line-spacing: initial;
+    --ui-custom-extra-padding: initial;
+  }
+
+  &--right {
+    & > * > .layout_overflower__original, 
+    & > * > .layout_overflower__overflow {
+      justify-content: flex-end;
+    }
+  }
+
+
+  &--center > * > .layout_overflower__original {
+    justify-content: center;
+  }
+}

@@ -20,7 +20,7 @@ const IconElement = ({
     icon,
     iconClassName,
     shouldScaleIcon,
-    size,
+    size = 'md',
 
     isHighlighted,
 }: {

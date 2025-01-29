@@ -106,6 +106,7 @@ function Overflower(props: Props) {
     )
     const hasTooltipContent = !propAs && tooltip
 
+    // @ts-expect-error
     const [Comp, compProps] = useAsComponent(finalPropAs)
 
     const Wrapper = Comp

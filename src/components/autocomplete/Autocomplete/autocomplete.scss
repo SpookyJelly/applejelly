@@ -78,12 +78,14 @@
             &.--focus {
                 background-color: var(--ui-interaction-primary-light);
             }
-            border: none;
-            outline-color: transparent;
-            outline-width: 0px;
-            resize: none;
-            min-width: 1px;
-            flex: 2;
+            & {
+                border: none;
+                outline-color: transparent;
+                outline-width: 0px;
+                resize: none;
+                min-width: 1px;
+                flex: 2;
+            }
         }
         & input::placeholder {
             color: var(--gray-125);

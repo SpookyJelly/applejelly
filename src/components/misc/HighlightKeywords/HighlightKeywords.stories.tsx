@@ -18,9 +18,9 @@ export const Basic: Story = {
         return (
             <>
                 <HighlightKeywords
-                    textToHighlight={content}
                     searchWords={value}
                     {...args}
+                    textToHighlight={content}
                 />
                 <div style={{ marginTop: 50 }}>
                     <input

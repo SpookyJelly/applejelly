@@ -60,7 +60,7 @@ function Checkbox({
     }
     const _hasOverflower =
         hasOverflower || !isMultiline || 'string' == typeof label
-    const LabelInner = _hasOverflower ? Overflower : Text
+    const LabelInner: React.ElementType = _hasOverflower ? Overflower : 'span'
 
     return (
         <span {...rest} className={classes} tabIndex={-1}>
@@ -78,7 +78,10 @@ function Checkbox({
                 size={size}
                 className={`${BLOCK}__icon checkbox__icon`}
             />
-            {label && <LabelInner>{label}</LabelInner>}
+
+            {label && (
+                <LabelInner className={`${BLOCK}__label`}>{label}</LabelInner>
+            )}
         </span>
     )
 }
