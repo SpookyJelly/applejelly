@@ -1,13 +1,13 @@
 import React from 'react'
 import * as R from 'ramda'
 import classNames from 'classnames'
-import { renderFakePanel } from '../shared/dropdownEl'
-import { PanelState, PanelAction, PanelActionTypes } from '../shared/types'
-import { CategoryTreeProps } from './index'
-import Button from '@applejelly/components/form/Button'
+import { renderFakePanel } from '../dropdownEl'
+import { PanelState, PanelAction, PanelActionTypes } from '../../shared/types'
+import { CategoryProps, ROOT_CLASS } from '.'
+import Button from '../../../form/Button'
 import { UseComboboxActions } from 'downshift'
 import { asyncAutocompleteStorageUtil } from './utils'
-// import { renderGuide } from '../../shared/commons'
+import { renderGuide } from '../../shared/commons'
 
 /**
  * Fake Panel Components
@@ -42,8 +42,7 @@ export const FakeTypePanelComponent = React.forwardRef<
                     }
                 },
                 onClick(idx) {
-                    console.log('aa1')
-                    if (items[idx].subType.length === 0) {
+                    if (items[idx].subType?.length === 0) {
                         dispatch({ type: PanelActionTypes.STEP.VALUE })
                     } else {
                         dispatch({ type: PanelActionTypes.STEP.SUBTYPE })
@@ -119,7 +118,7 @@ interface FakePanelProps {
     rootClass: string
     panelClass: string
     fpState: PanelState
-    items: CategoryTreeProps[]
+    items: CategoryProps[]
     dispatch: (value: PanelAction) => void
 }
 
@@ -265,4 +264,13 @@ interface ExpandableInputWrapperProps extends React.HTMLProps<HTMLDivElement> {
     isOpen?: boolean
     overflowerType: 'gradient' | 'ellipsis'
     keydownHandler?: (e: React.KeyboardEvent<any>) => void
+}
+
+/**
+ * Guide Component
+ */
+
+export const Guide = ({ hasGuide }: { hasGuide: boolean }) => {
+    const style = { border: 'none', borderTop: 'solid 1px var(--gray-125)' }
+    return hasGuide && renderGuide({ style })
 }

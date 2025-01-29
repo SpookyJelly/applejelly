@@ -1,6 +1,6 @@
 /**
  *
- * Button2
+ * Button
  *
  */
 
@@ -16,7 +16,7 @@
 
   // 기본 변수 및 스타일
   // --_button-text: white ;
-  @include button2-variables;
+  @include Button-variables;
   align-items: center;
   -webkit-appearance: none;
   background: transparent;
@@ -108,7 +108,7 @@
   }
 
   // 스타일 변형
-  @include button2-styles;
+  @include Button-styles;
 
   // 비활성화 상태
   &--is-disabled, &:disabled {

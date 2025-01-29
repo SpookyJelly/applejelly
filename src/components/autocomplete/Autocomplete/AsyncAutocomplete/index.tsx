@@ -7,8 +7,8 @@
 import React, { useState, useMemo } from 'react'
 import * as R from 'ramda'
 import classNames from 'classnames'
-import './async-autocomplete.scss'
-import AutocompleteProps, { PanelActionTypes } from '../shared/types'
+import '../autocomplete.scss'
+import AutocompleteProps, { PanelActionTypes } from '../../shared/types'
 import {
     FloatingPortal,
     autoUpdate,
@@ -17,31 +17,32 @@ import {
     shift,
     useFloating,
 } from '@floating-ui/react'
-import Button from '../../form/Button'
 import { useVirtualizer } from '@tanstack/react-virtual'
-import ClickOutside from '../../misc/ClickOutside'
+import ClickOutside from '../../../misc/ClickOutside'
 import {
     AutoCompleteTooltip,
     renderClearButton,
     renderGuide,
-} from '../shared/commons'
-import { fakePanelReducer } from '../shared/actions'
+} from '../../shared/commons'
+import { fakePanelReducer } from '../actions'
 import {
     inputKeyDownHandler,
     moveToSubTypePanel,
     moveToTypePanel,
-} from '../shared/handlers'
-import { renderDropdown } from '../shared/dropdownEl'
+} from '../handlers'
+import { renderDropdown } from '../dropdownEl'
 import {
     ExpandableInputWrapper,
     FakeSubTypePanelComponent,
     FakeTypePanelComponent,
+    Guide,
     RecentSearchPanelComponent,
-} from '../AsyncAutocomplete/AsyncAutocompleteComponents'
-import { useAsyncComboBox } from './hooks'
+} from './AsyncAutocompleteComponents'
+import { useAsyncComboBox, useDidMountEffect } from './hooks'
 import { convertCategoryPropsToTree } from './utils'
+import Button from '@applejelly/components/form/Button'
 
-export const ROOT = 'autocomplete_async-autocomplete'
+export const ROOT_CLASS = 'autocomplete'
 
 function AsyncAutoComplete({
     creatable,
@@ -49,6 +50,7 @@ function AsyncAutoComplete({
     defaultValue,
     value,
     categoryProps,
+    onClickClear,
     ...rest
 }: Props) {
     const [inputValue, setInputValue] = useState('')
@@ -60,8 +62,11 @@ function AsyncAutoComplete({
     })
 
     const init = () => {
+        // defaultValue와 value가 없다면 빈 배열을 반환합니다.
         if (!defaultValue && !value) return []
+        // value가 존재한다면 배열로 변환하여 반환합니다.
         if (value) return Array.isArray(value) ? value : [value]
+        // defaultValue가 존재한다면 배열로 변환하여 반환합니다. (우선 순위는 value보다 낮음 )
         if (defaultValue) return [defaultValue]
         return []
     }
@@ -80,10 +85,16 @@ function AsyncAutoComplete({
     const [items, setItems] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState(false)
 
-    const treeCategoryProps = useMemo(
-        () => convertCategoryPropsToTree(categoryProps),
-        [categoryProps]
-    )
+    // categoryProps는 업데이트 될 때, selectedItems이 변경될때마다 업데이트 됩니다
+    const treeCategoryProps = useMemo(() => {
+        const treeProps = convertCategoryPropsToTree(categoryProps)
+        return {
+            type: treeProps,
+            subType: treeProps.find(
+                (item) => item.key === fpState.type.selectedItem.key
+            )?.subType,
+        }
+    }, [categoryProps, fpState.type.selectedItem])
 
     // Fetch Data When inputValue is not empty and changed
     const fetchData = async (inputValue: string, selectedItem: {}) => {
@@ -183,12 +194,17 @@ function AsyncAutoComplete({
         comboBox.isOpen,
     ])
 
-    // trigger when selectedItems is changed
-    React.useEffect(() => {
+    useDidMountEffect(() => {
         if (rest.onChange) {
             rest.onChange(selectedItems)
         }
     }, [selectedItems])
+
+    useDidMountEffect(() => {
+        if (rest.onPanelOpen) {
+            rest.onPanelOpen({ isOpen: comboBox.isOpen, type: panelMode })
+        }
+    }, [comboBox.isOpen])
 
     const { refs, floatingStyles, placement } = useFloating({
         placement: 'bottom-start',
@@ -207,10 +223,10 @@ function AsyncAutoComplete({
     })
 
     const classes = classNames(
-        ROOT,
+        ROOT_CLASS,
         {
-            [`${ROOT}--has-clear-button`]: hasClearButton,
-            [`${ROOT}--is-open`]: comboBox.isOpen,
+            [`${ROOT_CLASS}--has-clear-button`]: hasClearButton,
+            [`${ROOT_CLASS}--is-open`]: comboBox.isOpen,
         },
         {
             ['--sm']: rest.size === 'sm',
@@ -227,6 +243,7 @@ function AsyncAutoComplete({
     })
 
     const wrapperWidth = refs.reference?.current?.getBoundingClientRect().width
+    const floatingWidth = rest.floatingWidth || wrapperWidth
 
     // In-component Renderer
     // refer Non-Function parameter
@@ -240,12 +257,12 @@ function AsyncAutoComplete({
                     type={type}
                     displayProperties={rest.displayProperties}
                     fpState={fpState}
-                    rootClassName={ROOT}
+                    rootClassName={ROOT_CLASS}
                 />
             )
         if (inputValue.length < rest.minSearchLength)
             return (
-                <div className={classNames(ROOT + '__indicator')}>
+                <div className={classNames(ROOT_CLASS + '__indicator')}>
                     Type {rest.minSearchLength - inputValue.length} more
                     characters to search
                 </div>
@@ -269,13 +286,17 @@ function AsyncAutoComplete({
                 validationMessage={rest.validationMessage}
             >
                 <ExpandableInputWrapper
-                    rootClass={ROOT}
+                    rootClass={ROOT_CLASS}
                     isOpen={false}
                     overflowerType={rest.overflowerType}
                 >
                     {selectedItems.map((item, i) => (
                         <div key={i}>
-                            <p className={classNames(ROOT + '__selected-item')}>
+                            <p
+                                className={classNames(
+                                    ROOT_CLASS + '__ellipsis'
+                                )}
+                            >
                                 {item[rest.displayProperties.id]}
                             </p>
                         </div>
@@ -287,7 +308,7 @@ function AsyncAutoComplete({
                             selectedItems.length === 0 ? rest.placeholder : ''
                         }
                         readOnly
-                        className="placeholder --override-gray"
+                        className="placeholder"
                         onClick={() => {
                             setPanelMode('list')
                             dispatch({ type: PanelActionTypes.CLEAR })
@@ -305,16 +326,21 @@ function AsyncAutoComplete({
                                 dispatch({ type: PanelActionTypes.CLEAR })
                                 comboBox.toggleMenu()
                             }}
-                            className="--toggle-menu --override-gray"
+                            className="--toggle-menu"
                         />
                     )}
                     {hasClearButton &&
                         renderClearButton({
+                            style: { right: 0, background: 'transparent' },
                             onClick: (e) => {
                                 e.stopPropagation()
                                 e.preventDefault()
                                 setInputValue('')
                                 setSelectedItems([])
+                                // NOTE: clear button 클릭시 외부로 이벤 전송
+                                if (onClickClear) {
+                                    onClickClear()
+                                }
                             },
                         })}
                 </ExpandableInputWrapper>
@@ -327,16 +353,16 @@ function AsyncAutoComplete({
                                 ref={refs.setFloating}
                                 style={{
                                     ...floatingStyles,
-                                    width: wrapperWidth,
+                                    width: floatingWidth,
                                     zIndex: 1500,
                                     minWidth: panelMode === 'list' ? 200 : 500,
                                 }}
-                                className={classNames(ROOT, '--shadow')}
+                                className={classNames(ROOT_CLASS, '--shadow')}
                             >
                                 {panelMode === 'list' && (
                                     <>
                                         <ExpandableInputWrapper
-                                            rootClass={ROOT}
+                                            rootClass={ROOT_CLASS}
                                             isOpen={true}
                                             keydownHandler={
                                                 keydownHandler['list']
@@ -361,7 +387,12 @@ function AsyncAutoComplete({
                                         {/* Value */}
                                         <div
                                             className={classNames(
-                                                ROOT + '__menu'
+                                                ROOT_CLASS + '__menu',
+                                                {
+                                                    '--guide': Boolean(
+                                                        rest.hasGuide
+                                                    ),
+                                                }
                                             )}
                                         >
                                             <div
@@ -369,20 +400,25 @@ function AsyncAutoComplete({
                                                     ref: parentRef,
                                                 })}
                                                 className={classNames(
-                                                    ROOT + '__custom-scroll',
-                                                    ROOT + '__list'
+                                                    ROOT_CLASS +
+                                                        '__custom-scroll',
+                                                    ROOT_CLASS + '__list'
                                                 )}
                                             >
                                                 {valuePanelRenderer('list')}
                                             </div>
-                                            {rest.hasGuide && renderGuide({})}
+                                            <Guide
+                                                hasGuide={Boolean(
+                                                    rest.hasGuide
+                                                )}
+                                            />
                                         </div>
                                     </>
                                 )}
                                 {panelMode === 'category' && (
                                     <div>
                                         <ExpandableInputWrapper
-                                            rootClass={ROOT}
+                                            rootClass={ROOT_CLASS}
                                             isOpen={true}
                                             overflowerType={rest.overflowerType}
                                             keydownHandler={
@@ -401,7 +437,9 @@ function AsyncAutoComplete({
                                                                   typePanelRef,
                                                                   subTypePanelRef,
                                                                   dispatch,
-                                                                  treeCategoryProps
+                                                                  // rest.categoryProps,
+                                                                  // treeCategoryProps
+                                                                  treeCategoryProps.type
                                                               )
                                                           }
                                                         : comboBox.getInputProps()
@@ -423,29 +461,35 @@ function AsyncAutoComplete({
 
                                         <div
                                             className={classNames(
-                                                ROOT + '__menu'
+                                                ROOT_CLASS + '__menu',
+                                                {
+                                                    '--guide': Boolean(
+                                                        rest.hasGuide
+                                                    ),
+                                                }
                                             )}
                                         >
                                             <div className="--flex">
                                                 {/* Type Panel  */}
                                                 <FakeTypePanelComponent
                                                     ref={typePanelRef}
-                                                    rootClass={ROOT}
+                                                    rootClass={ROOT_CLASS}
                                                     panelClass={panelClasses}
                                                     fpState={fpState}
                                                     dispatch={dispatch}
-                                                    items={treeCategoryProps}
+                                                    items={
+                                                        treeCategoryProps.type
+                                                    }
                                                 />
                                                 {/* SubType */}
                                                 <FakeSubTypePanelComponent
                                                     ref={subTypePanelRef}
-                                                    rootClass={ROOT}
+                                                    rootClass={ROOT_CLASS}
                                                     panelClass={panelClasses}
                                                     fpState={fpState}
+                                                    //@ts-ignore
                                                     items={
-                                                        fpState.type
-                                                            .selectedItem
-                                                            .subType
+                                                        treeCategoryProps.subType
                                                     }
                                                     dispatch={dispatch}
                                                 />
@@ -454,13 +498,13 @@ function AsyncAutoComplete({
                                                     className={classNames(
                                                         panelClasses +
                                                             '--value',
-                                                        ROOT + '__menu',
+                                                        ROOT_CLASS + '__menu',
                                                         '--category'
                                                     )}
                                                 >
                                                     <div
                                                         className={classNames(
-                                                            ROOT +
+                                                            ROOT_CLASS +
                                                                 '__custom-scroll'
                                                         )}
                                                         {...comboBox.getMenuProps(
@@ -475,7 +519,11 @@ function AsyncAutoComplete({
                                                     </div>
                                                 </div>
                                             </div>
-                                            {rest.hasGuide && renderGuide({})}
+                                            <Guide
+                                                hasGuide={Boolean(
+                                                    rest.hasGuide
+                                                )}
+                                            />
                                         </div>
                                     </div>
                                 )}
@@ -524,6 +572,10 @@ interface Props extends Omit<AutocompleteProps, ExcludedProps> {
     minSearchLength: number
     defaultValue?: any
     value?: any | any[]
+    // Added on request
+    floatingWidth?: number // using custom width for floating panel (can't be smaller than minwidth)
+    onClickClear?: () => void // trigger when clear button is clicked
+    onPanelOpen?: (e: any) => any // trigger when panel is opened
 }
 export interface CategoryTreeProps {
     key: string
@@ -537,6 +589,7 @@ export interface CategoryProps {
     key: string
     count: number
     deps: number
+    subType?: CategoryTreeProps[]
     totalDeps: number
     parent?: string
 }

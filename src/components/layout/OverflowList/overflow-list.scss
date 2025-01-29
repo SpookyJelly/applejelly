@@ -1,0 +1,188 @@
+/**
+ *
+ * OverflowList
+ *
+ */
+
+.layout_overflow-list {
+  $list: &;
+
+  --digits: 1;
+  --lines: 1;
+  --line-height: 1.5em;
+  --gap-y: 4px;
+  --gap-x: 4px;
+  --handle-width: initial;
+  --justify-content: flex-start;
+  --align-items: flex-start;
+  --min-item-width: 2.8em;
+  max-width: 100%;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: stretch;
+
+  &-content {
+    --height: calc(var(--lines)*(var(--line-height) + var(--gap-y)));
+    align-content: flex-start;
+    align-items: var(--align-items);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: var(--justify-content);
+    margin-left: calc(var(--gap-x)*-1);
+    margin-top: calc(var(--gap-y)*-1);
+    max-width: calc(100% + var(--gap-x));
+    min-height: calc(var(--line-height) + var(--gap-y));
+    overflow: hidden;
+    position: relative;
+    width: calc(100% + var(--gap-x));
+  }
+
+  &__after,
+  &__before,
+  &__handle {
+    line-height: var(--line-height);
+  }
+
+  &--is-vertical {
+    & > #{$list}-content {
+      flex-direction: column
+    }
+
+    &#{$list}--is-disabled {
+      & > #{$list}-content {
+        flex-wrap: nowrap
+      }
+    }
+  }
+
+  &:not(#{$list}--is-disabled) > &-content {
+    max-height: var(--height);
+    white-space: nowrap;
+  }
+
+  &--has-auto-height {
+    display: flex;
+    height: 100%;
+
+    & > #{$list}-content[class] {
+      height: auto;
+      max-height: calc(100% + var(--gap-y));
+    }
+  }
+
+  &--has-containment > &-content[class] {
+    contain: layout paint;
+    height: var(--height)
+  }
+
+  &--is-single-line:not(#{$list}--is-disabled):not(#{$list}--has-always-all-hidden) > #{$list}-content:before {
+    content: "";
+    height: var(--line-height);
+    margin-top: var(--gap-y);
+    width: 0
+  }
+
+  &--is-vertical:not(#{$list}--is-disabled):not(#{$list}--has-always-all-hidden) > #{$list}-content:before {
+    content: "";
+    height: 0;
+    width: 100%
+  }
+
+  &-content > :not(#{$list}__handle):not(#{$list}__after) {
+    margin-left: var(--gap-x);
+    margin-top: var(--gap-y);
+    max-width: calc(100% - var(--gap-x));
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+
+  &--is-vertical:not(#{$list}--is-disabled) > #{$list}-content > :not(#{$list}__handle):not(#{$list}__after) {
+    margin-right: 100%
+  }
+
+  &:not(#{$list}--has-always-all-hidden):not(#{$list}--is-disabled) > * > #{$list}__handle {
+    position: relative;
+    white-space: nowrap;
+    width: 0;
+  }
+
+  &:not(#{$list}--has-always-all-hidden):not(#{$list}--is-disabled) > * > #{$list}__handle > * {
+    max-width: none;
+    position: absolute;
+    right: 0
+  }
+
+  &--is-vertical:not(#{$list}--has-always-all-hidden):not(#{$list}--is-disabled) > * > #{$list}__handle > * {
+    bottom: 0;
+    right: auto
+  }
+
+  &:not(#{$list}--is-vertical) > * > #{$list}__handle {
+    height: var(--line-height)
+  }
+
+  &__handle[class][class] > * {
+    margin-left: var(--gap-x);
+    margin-top: var(--gap-y)
+  }
+
+  &__handle:empty {
+    visibility: hidden
+  }
+
+  &--is-single-line#{$list}--has-all-hidden:not(#{$list}--is-disabled):not(#{$list}--has-always-all-hidden) > * > #{$list}__handle,
+  &--is-vertical#{$list}--has-all-hidden:not(#{$list}--is-disabled):not(#{$list}--has-always-all-hidden) > * > #{$list}__handle {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%
+  }
+
+  &--is-single-line#{$list}--has-all-hidden:not(#{$list}--is-disabled):not(#{$list}--has-always-all-hidden) > * > #{$list}__handle>*,
+  &--is-vertical#{$list}--has-all-hidden:not(#{$list}--is-disabled):not(#{$list}--has-always-all-hidden) > * > #{$list}__handle>* {
+    bottom: auto;
+    left: 0;
+    max-width: calc(100% - var(--gap-x));
+    right: auto;
+    top: 0
+  }
+
+  &[class] > * > [data-last-visible-item] {
+    margin-right: calc(var(--handle-width) + var(--gap-x));
+    max-width: calc(100% - var(--handle-width) - var(--gap-x)*2)
+  }
+
+  &[class] > * > [data-last-visible-item]:first-child {
+    min-width: var(--min-item-width)
+  }
+
+  &--is-vertical[class] > * >[data-last-visible-item] {
+    margin-bottom: calc(var(--line-height) + var(--gap-y));
+    margin-right: 100%;
+    max-width: none
+  }
+  
+  &--has-all-hidden > * > #{$list}__before,
+  &:not(#{$list}--is-disabled) > * > [data-last-visible-item]~:not(#{$list}__handle):not(#{$list}__after) {
+    visibility: hidden
+  }
+  
+  &--has-always-all-hidden > * > #{$list}__before {
+    display: none
+  }
+  
+  &--has-always-all-hidden > * >#{$list}__handle {
+    max-width: 100%
+  }
+  
+  &__after {
+    flex-basis: min-content;
+    flex-grow: 1;
+    flex-shrink: 0;
+    margin-left: var(--gap-x);
+    margin-top: var(--gap-y);
+    min-width: 0
+  }
+  
+}

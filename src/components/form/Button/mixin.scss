@@ -1,4 +1,4 @@
-@mixin button2-variables {
+@mixin Button-variables {
     --form-text-placeholder: var(--ui-text-tertiary);
     --form-text-disabled: var(--ui-text-disabled);
     --form-icon: var(--ui-text-tertiary);
@@ -74,7 +74,7 @@
     --_button-shadow--active: inset 0 0.1em 0.3em rgba(0, 0, 0, 0.3);
 }
 
-@mixin button2-styles {
+@mixin Button-styles {
     $button: &;
 
     &--default {

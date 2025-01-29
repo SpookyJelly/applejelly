@@ -194,3 +194,4 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export default Button
+export type { Props as ButtonProps }

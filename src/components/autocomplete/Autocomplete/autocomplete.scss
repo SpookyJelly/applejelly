@@ -1,21 +1,21 @@
-/**
- *
- * autocomplete_autocomplete
- *
-*/
-
-@import '@applejelly/style/variables.scss';
-@import '@applejelly/style/global.scss';
-
-.autocomplete_autocomplete {
+.autocomplete {
     &__list {
         overflow: auto;
+        max-height: 200px;
     }
-    &.__shadow {
-        box-shadow: 0 3px 12px var(--ui-shadow-strength);
+    &__ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+    &.--shadow {
+        box-shadow:
+            0 0 1px rgba(0, 0, 0, 0.1),
+            0 3px 12px var(--ui-shadow-strength);
+    }
+
     &__menu {
-        border: solid 1px var(--ui-interaction-primary-contrast);
+        border: solid 1px var(--ui-interaction-primary);
         background-color: white;
         border-top: none;
         border-bottom-left-radius: 2px;
@@ -29,10 +29,46 @@
             width: 150;
         }
     }
+    &__dropdown-empty {
+        padding: 10px;
+        color: var(--gray-125);
+    }
+    &__dropdown_list {
+        & li div[data-keyword] {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        cursor: pointer;
+        position: relative;
+        &-item {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            color: black;
+            padding: 0px 10px;
+            &.--focused {
+                background-color: var(--ui-interaction-primary);
+                color: white;
+            }
 
+            & [data-keyword] {
+                flex: 1;
+                font-size: 8px !important;
+            }
+            & [data-description] {
+                margin-right: 5px;
+                color: var(--gray-75);
+            }
+        }
+    }
     &__panel {
         display: flex;
         flex-direction: column;
+        // flex-grow: 1;
         background-color: transparent;
         overflow-y: hidden;
         min-height: 210px;
@@ -45,6 +81,9 @@
             min-height: 210px;
         }
     }
+    &__panel-wrapper {
+        // 여기다 쓸까
+    }
     // Input Wrapper
     &__input-wrapper {
         border: solid 1px #c2c8dd;
@@ -56,7 +95,7 @@
 
         &.--focus {
             border-color: var(--ui-interaction-primary);
-            background-color: var(--ui-interaction-secondary);
+            background-color: var(--blue-200);
         }
 
         &.--readonly {
@@ -76,16 +115,14 @@
         & input {
             height: 23px;
             &.--focus {
-                background-color: var(--ui-interaction-primary-light);
+                background-color: var(--blue-200);
             }
-            & {
-                border: none;
-                outline-color: transparent;
-                outline-width: 0px;
-                resize: none;
-                min-width: 1px;
-                flex: 2;
-            }
+            border: none;
+            outline-color: transparent;
+            outline-width: 0px;
+            resize: none;
+            min-width: 1px;
+            flex: 2;
         }
         & input::placeholder {
             color: var(--gray-125);
@@ -124,10 +161,65 @@
         padding: 10px;
         color: var(--gray-300);
     }
-    & .--override-gray {
-        // color: rgb(172, 172, 172) !important;
-        &::placeholder {
-            color: rgb(172, 172, 172) !important;
+
+    &__recent-search {
+        &-no-result {
+            padding: 10px;
+            color: var(--gray-125);
+        }
+        &-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        &-header {
+            // position: fixed;
+            position: sticky;
+            height: 30px;
+            background-color: var(--gray-75);
+            // width: calc(100% - 9px);
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: var(--gray-400);
+        }
+        &-content {
+            display: flex;
+            flex-direction: column;
+        }
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: black;
+            height: 30px;
+
+            & .value {
+                flex: 1;
+                padding-left: 10px;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+            }
+            & .type {
+                color: var(--gray-125);
+                margin-right: 8px;
+            }
+            &:hover {
+                background-color: var(--ui-interaction-primary);
+                * {
+                    color: white;
+                }
+            }
+
+            // Override Button component's svg style
+            & div.form_button__icon-wrapper svg {
+                width: 10px;
+                height: 10px;
+                margin-top: 2px;
+                margin-left: 2px;
+            }
         }
     }
 }
