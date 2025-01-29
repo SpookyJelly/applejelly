@@ -27,7 +27,6 @@ function HighlightKeywords({
     ...rest
 }: Props) {
     const parsedSearchWords = parseStringToArray(searchWords)
-    console.log('parsedSearchWords', parsedSearchWords)
 
     return (
         <span className={cn(BLOCK, className)}>

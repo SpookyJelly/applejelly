@@ -1,19 +1,14 @@
 /**
  *
- * Autocomplete
+ * AutoComplete
  *
  */
 
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import * as R from 'ramda'
-import cn from 'classnames'
+import classNames from 'classnames'
 import './autocomplete.scss'
 import AutocompleteProps, { PanelActionTypes } from '../shared/types'
-import {
-    AutoCompleteTooltip,
-    renderClearButton,
-    renderGuide,
-} from '../shared/commons'
 import { Item } from '../shared/data'
 import {
     FloatingPortal,
@@ -23,26 +18,33 @@ import {
     shift,
     useFloating,
 } from '@floating-ui/react'
-import Button from '@applejelly/components/form/Button'
+import Button from '../../form/Button'
 import { useVirtualizer } from '@tanstack/react-virtual'
-import ClickOutside from '@applejelly/components/misc/ClickOutside'
-import { fakePanelReducer } from '../shared/actions'
-import { getFilteredItems, getInputFilteredItems } from '../shared/fn'
+import ClickOutside from '../../misc/ClickOutside'
+import {
+    AutoCompleteTooltip,
+    renderClearButton,
+    renderGuide,
+} from '../shared/commons'
+import { getFilteredItems, getInputFilteredItems } from './fn'
+import { fakePanelReducer } from './actions'
 import {
     inputKeyDownHandler,
     moveToSubTypePanel,
     moveToTypePanel,
-} from '../shared/handlers'
-import { useCombobox } from 'downshift'
-import { renderDropdown, renderFakePanel } from '../shared/dropdownEl'
-import { useSource } from '../shared/hooks'
+} from './handlers'
+import { useCombobox, useMultipleSelection } from 'downshift'
+import { useSource } from './hooks'
+import { renderDropdown, renderFakePanel } from './dropdownEl'
 
-const BLOCK = 'autocomplete_autocomplete'
-function Autocomplete({
-    data = [],
+export const ROOT_CLASS = 'autocomplete'
+
+function AutoComplete({
+    data,
     creatable,
     defaultValue,
     value,
+    onClickClear,
     ...rest
 }: Props) {
     const init = () => {
@@ -56,13 +58,12 @@ function Autocomplete({
     const [selectedItems, setSelectedItems] = useState<Item[]>(
         value ? [value] : []
     )
-
     const [fpState, dispatch] = React.useReducer(fakePanelReducer, {
         type: { index: -1, selectedItem: {} },
         subType: { index: -1, selectedItem: {} },
         activatedPanel: 'type',
     })
-    const items: Item[] = useMemo(() => {
+    let items: Item[] = useMemo(() => {
         if (fpState.activatedPanel === 'subType') {
             const newData = data.filter(
                 (item) => item.type === fpState.type.selectedItem.type
@@ -162,6 +163,7 @@ function Autocomplete({
         },
         { suppressRefError: true }
     )
+
     const keydownHandler = {
         category: (e: React.KeyboardEvent<HTMLDivElement>) => {
             if (e.code.includes('Arrow')) {
@@ -186,6 +188,7 @@ function Autocomplete({
     const typePanelRef = React.useRef<HTMLDivElement>(null)
     const subTypePanelRef = React.useRef<HTMLDivElement>(null)
 
+    // Reset input value when type or subType is changed
     React.useEffect(() => {
         setInputValue('')
     }, [
@@ -203,11 +206,6 @@ function Autocomplete({
 
     // trigger when drilled value is changed
     React.useEffect(() => {
-        // selectedItems와 value가 같다면 return
-        // [] 와 []를 다른 값으로 간주하기 때문에, 무한 setter 호출. 이를 방지하기 위해 삽입
-        if (value && R.equals([value], selectedItems)) {
-            return
-        }
         const newValue = init()
         setSelectedItems(newValue)
     }, [value])
@@ -229,11 +227,11 @@ function Autocomplete({
         ],
     })
 
-    const classes = cn(
-        BLOCK,
+    const classes = classNames(
+        ROOT_CLASS,
         {
-            [`${BLOCK}--has-clear-button`]: hasClearButton,
-            [`${BLOCK}--is-open`]: comboBox.isOpen,
+            [`${ROOT_CLASS}--has-clear-button`]: hasClearButton,
+            [`${ROOT_CLASS}--is-open`]: comboBox.isOpen,
         },
         {
             ['--sm']: rest.size === 'sm',
@@ -243,14 +241,14 @@ function Autocomplete({
         rest.className
     )
 
-    const panelClasses = cn(`__panel`, {
+    const panelClasses = classNames(`__panel`, {
         ['--sm']: rest.size === 'sm',
         ['--md']: rest.size === 'md',
         ['--lg']: rest.size === 'lg',
     })
 
     const wrapperWidth = refs.reference?.current?.getBoundingClientRect().width
-
+    const floatingWidth = rest.floatingWidth || wrapperWidth
     return (
         <Component className={classes} ref={refs.setReference}>
             <AutoCompleteTooltip
@@ -258,11 +256,19 @@ function Autocomplete({
                 isEnabled={Boolean(rest.validationMessage)}
                 validationMessage={rest.validationMessage}
             >
-                <div className={cn(BLOCK + '__input-wrapper')}>
+                <div
+                    className={classNames(
+                        ROOT_CLASS + '__input-wrapper',
+                        '--open'
+                    )}
+                >
                     <div
-                        className={cn(BLOCK + '__layout-container', {
-                            '--warp': rest.overflowerType === 'gradient',
-                        })}
+                        className={classNames(
+                            ROOT_CLASS + '__layout-container',
+                            {
+                                '--warp': rest.overflowerType === 'gradient',
+                            }
+                        )}
                     >
                         {selectedItems.map((item, i) => (
                             <div key={i}>
@@ -280,7 +286,7 @@ function Autocomplete({
                                     : ''
                             }
                             readOnly
-                            className="placeholder --override-gray"
+                            className="placeholder"
                             onClick={() => {
                                 setPanelMode('list')
                                 dispatch({ type: PanelActionTypes.CLEAR })
@@ -292,22 +298,26 @@ function Autocomplete({
                                 icon="caretDown"
                                 isDisabled={rest.isReadOnly}
                                 size="xs"
-                                isNaked
+                                isDangerouslyNaked
                                 onClick={() => {
                                     setPanelMode('category')
                                     dispatch({ type: PanelActionTypes.CLEAR })
                                     comboBox.toggleMenu()
                                 }}
-                                className="--toggle-menu --override-gray"
+                                className="--toggle-menu"
                             />
                         )}
                         {hasClearButton &&
                             renderClearButton({
+                                style: { right: 20 },
                                 onClick: (e) => {
                                     e.stopPropagation()
                                     e.preventDefault()
                                     setInputValue('')
                                     setSelectedItems([])
+                                    if (onClickClear) {
+                                        onClickClear()
+                                    }
                                 },
                             })}
                     </div>
@@ -320,26 +330,25 @@ function Autocomplete({
                                 ref={refs.setFloating}
                                 style={{
                                     ...floatingStyles,
-                                    width: wrapperWidth,
+                                    width: floatingWidth,
                                     zIndex: 1500,
-                                    borderRadius: '2px',
                                     minWidth: panelMode === 'list' ? 200 : 500,
                                 }}
-                                className={cn(BLOCK, '__shadow')}
+                                className={classNames(ROOT_CLASS, '--shadow')}
                             >
                                 {panelMode === 'list' && (
                                     <>
                                         <div
-                                            className={cn(
-                                                BLOCK + '__input-wrapper',
+                                            className={classNames(
+                                                ROOT_CLASS + '__input-wrapper',
                                                 '--focus',
                                                 '--open'
                                             )}
                                             onKeyDown={keydownHandler['list']}
                                         >
                                             <div
-                                                className={cn(
-                                                    BLOCK +
+                                                className={classNames(
+                                                    ROOT_CLASS +
                                                         '__layout-container',
                                                     {
                                                         '--warp':
@@ -362,14 +371,19 @@ function Autocomplete({
                                                 />
                                             </div>
                                         </div>
-                                        <div className={cn(BLOCK + '__menu')}>
+                                        <div
+                                            className={classNames(
+                                                ROOT_CLASS + '__menu'
+                                            )}
+                                        >
                                             <div
                                                 {...comboBox.getMenuProps({
                                                     ref: parentRef,
                                                 })}
-                                                className={cn(
-                                                    BLOCK + '__custom-scroll',
-                                                    BLOCK + '__list'
+                                                className={classNames(
+                                                    ROOT_CLASS +
+                                                        '__custom-scroll',
+                                                    ROOT_CLASS + '__list'
                                                 )}
                                             >
                                                 {renderDropdown({
@@ -381,15 +395,22 @@ function Autocomplete({
                                                     selectedItems,
                                                 })}
                                             </div>
-                                            {rest.hasGuide && renderGuide({})}
+                                            {rest.hasGuide &&
+                                                renderGuide({
+                                                    style: {
+                                                        border: 'none',
+                                                        borderTop:
+                                                            'solid 1px var(--gray-125)',
+                                                    },
+                                                })}
                                         </div>
                                     </>
                                 )}
                                 {panelMode === 'category' && (
                                     <>
                                         <div
-                                            className={cn(
-                                                BLOCK + '__input-wrapper',
+                                            className={classNames(
+                                                ROOT_CLASS + '__input-wrapper',
                                                 '--focus',
                                                 '--open'
                                             )}
@@ -398,8 +419,8 @@ function Autocomplete({
                                             }
                                         >
                                             <div
-                                                className={cn(
-                                                    BLOCK +
+                                                className={classNames(
+                                                    ROOT_CLASS +
                                                         '__layout-container',
                                                     {
                                                         '--warp':
@@ -438,14 +459,18 @@ function Autocomplete({
                                                 />
                                             </div>
                                         </div>
-                                        <div className={cn(BLOCK + '__menu')}>
+                                        <div
+                                            className={classNames(
+                                                ROOT_CLASS + '__menu'
+                                            )}
+                                        >
                                             <div className="--flex">
                                                 <div
-                                                    className={cn(
+                                                    className={classNames(
                                                         panelClasses,
-                                                        BLOCK + '__panel',
+                                                        ROOT_CLASS + '__panel',
                                                         '--activated',
-                                                        BLOCK +
+                                                        ROOT_CLASS +
                                                             '__custom-scroll'
                                                     )}
                                                     ref={typePanelRef}
@@ -516,10 +541,10 @@ function Autocomplete({
                                                 </div>
                                                 <div
                                                     ref={subTypePanelRef}
-                                                    className={cn(
+                                                    className={classNames(
                                                         panelClasses,
-                                                        BLOCK + '__panel',
-                                                        BLOCK +
+                                                        ROOT_CLASS + '__panel',
+                                                        ROOT_CLASS +
                                                             '__custom-scroll',
                                                         {
                                                             '--activated':
@@ -596,10 +621,10 @@ function Autocomplete({
                                                         flexGrow: 5,
                                                         border: 'none',
                                                     }}
-                                                    className={cn(
+                                                    className={classNames(
                                                         panelClasses +
                                                             '--value',
-                                                        BLOCK + '__menu'
+                                                        ROOT_CLASS + '__menu'
                                                     )}
                                                 >
                                                     <div
@@ -607,8 +632,8 @@ function Autocomplete({
                                                             overflow: 'auto',
                                                             maxHeight: 210,
                                                         }}
-                                                        className={cn(
-                                                            BLOCK +
+                                                        className={classNames(
+                                                            ROOT_CLASS +
                                                                 '__custom-scroll'
                                                         )}
                                                         {...comboBox.getMenuProps(
@@ -642,24 +667,20 @@ function Autocomplete({
     )
 }
 
-Autocomplete.defaultProps = {
+type ExcludedProps = 'hasDetail' | 'hasCheckIcon' | 'isSingle'
+
+AutoComplete.defaultProps = {
     hasCaretDownIcon: true,
     hasClearButton: true,
     hasGuide: false,
+    creatable: false,
     overflowerType: 'gradient',
     isSingle: true,
-    size: 'md',
     placeholder: 'Select',
-    minSearchLength: 2,
+    size: 'md',
 }
 
-type ExcludedProps =
-    | 'hasDetail'
-    | 'hasCheckIcon'
-    | 'isSingle'
-    | 'defaultValue'
-    | 'onChange'
-
+//@ts-ignore
 interface Props extends Omit<AutocompleteProps, ExcludedProps> {
     data: Item[]
     hasCaretDownIcon: boolean
@@ -668,10 +689,16 @@ interface Props extends Omit<AutocompleteProps, ExcludedProps> {
     creatable?: boolean
     size: 'sm' | 'md' | 'lg'
     overflowerType: 'gradient' | 'ellipsis'
+    // isSingle: boolean;
     placeholder: string
     onChange?: (value: Item[]) => void
     defaultValue?: Item
     value?: Item
+
+    // Added on request
+    floatingWidth?: number // using custom width for floating panel (can't be smaller than minwidth)
+    onClickClear?: () => void // trigger when clear button is clicked
+    onPanelOpen?: (e: any) => any // trigger when panel is opened
 }
-export default Autocomplete
-export type { Props as AutocompleteProps }
+
+export default AutoComplete

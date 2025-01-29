@@ -1,13 +1,15 @@
 import * as React from 'react'
 import HighlightKeywords from './index'
 import { Meta, StoryObj } from '@storybook/react'
+import Button from '@applejelly/components/form/Button'
 
 export default {
     title: '@applejelly/misc/HighlightKeywords',
-    component: HighlightKeywords,
+    // componentds,
+    component: Button,
 }
 
-type Story = StoryObj<typeof HighlightKeywords>
+type Story = StoryObj<typeof Button>
 
 export const Basic: Story = {
     args: {},
