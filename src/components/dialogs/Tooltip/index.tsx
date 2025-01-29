@@ -55,7 +55,7 @@ function Tooltip({
 }: Props) {
     const [isOpen, setIsOpen] = useState(rest.isOpen)
     const arrowRef = useRef(null)
-    const popoverContext = useContext(PopoverContext)
+    const popoverContext = useContext(PopoverContext) as any
 
     const getOpen = () => {
         if (popoverContext?.open) {

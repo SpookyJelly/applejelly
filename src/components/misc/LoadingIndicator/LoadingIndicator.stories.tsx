@@ -1,6 +1,6 @@
 import * as React from 'react'
 import LoadingIndicator from './index'
-import { Meta, StoryObj } from '@storybook/block'
+import { Meta, StoryObj } from '@storybook/react'
 
 export default {
     title: '@applejelly/misc/LoadingIndicator',

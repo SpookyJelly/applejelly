@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Group from './index'
 import Button from '../Button/index'
-import { Meta, StoryObj } from '@storybook/block'
+import { Meta, StoryObj } from '@storybook/react'
 
 export default {
     title: '@applejelly/form/Group',

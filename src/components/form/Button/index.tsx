@@ -160,7 +160,7 @@ function Button({
 }
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
-    size: TSHIRT_SIZE
+    size?: TSHIRT_SIZE
     href?: string
     isExternal?: boolean
     level?: 'default' | 'success' | 'warning' | 'danger'

@@ -10,6 +10,7 @@ import Icon from '@applejelly/components/common/Icon'
 import './checkbox.scss'
 import { TSHIRT_SIZE } from '@applejelly/style/constant'
 import { IconsProps } from '@storybook/components'
+import Overflower from '@applejelly/components/layout/Overflower'
 const BLOCK = 'form_checkbox'
 function Checkbox({
     isDisabled = false,

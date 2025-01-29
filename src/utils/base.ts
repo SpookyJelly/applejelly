@@ -173,6 +173,7 @@ function mergeProps(...propList) {
 function handlePropGetter(prevProps, userProps, meta) {
     // Handle a lambda, pass it the previous props
     if (typeof userProps === 'function') {
+        //@ts-expect-error - this is a valid call (ref : react-table)
         return handlePropGetter({}, userProps(prevProps, meta))
     }
 
@@ -205,6 +206,7 @@ export function collectMatchingElements(
 ) {
     let matchingElements = []
     if (matchCondition(element) && !stopAtFirstMatch) {
+        //@ts-ignore
         matchingElements.push(element)
     }
 

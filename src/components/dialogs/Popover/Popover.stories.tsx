@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Popover from './index'
-import { Meta, StoryObj } from '@storybook/block'
+import { Meta, StoryObj } from '@storybook/react'
 import Button from '@applejelly/components/form/Button'
 
 export default {

@@ -205,7 +205,7 @@ function Autocomplete({
     React.useEffect(() => {
         // selectedItems와 value가 같다면 return
         // [] 와 []를 다른 값으로 간주하기 때문에, 무한 setter 호출. 이를 방지하기 위해 삽입
-        if (R.equals(value, selectedItems)) {
+        if (value && R.equals([value], selectedItems)) {
             return
         }
         const newValue = init()

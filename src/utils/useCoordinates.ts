@@ -60,6 +60,7 @@ export function useCoordinates(props: {
                     const { clientX, clientY } = _event
 
                     if (!domElement) return null
+                    //@ts-ignore
                     const clientRect = domElement.getBoundingClientRect()
                     const left = clientRect.left
                     const top = clientRect.top

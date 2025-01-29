@@ -1,6 +1,4 @@
-export { default as MarginPaddingWrapper }  from './MarginPaddingWrapper'
-export { default as docOutline  } from './docOutline'
-export * from './docHelper'
+export { default as MarginPaddingWrapper } from './MarginPaddingWrapper'
 export * from './baseProps'
 export * from './constant'
 export * from './base'

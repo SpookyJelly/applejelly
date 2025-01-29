@@ -64,11 +64,8 @@ export const renderDropdown = ({
                     <Icon
                         name="check"
                         size="sm"
-                        color={
-                            selectedItems.includes(item)
-                                ? 'black'
-                                : 'rgba(28,43,52,0.1)'
-                        }
+                        color={selectedItems.includes(item) ? 'black' : 'white'}
+                        fill={selectedItems.includes(item) ? 'black' : 'white'}
                     />
                 </>
             )
@@ -91,6 +88,11 @@ export const renderDropdown = ({
                     name="check"
                     size="sm"
                     color={
+                        selectedItems.includes(item)
+                            ? 'black'
+                            : 'rgba(28,43,52,0.1)'
+                    }
+                    fill={
                         selectedItems.includes(item)
                             ? 'black'
                             : 'rgba(28,43,52,0.1)'
