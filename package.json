@@ -1,6 +1,6 @@
 {
     "name": "applejelly",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "A React library for creating UI components",
     "keywords": [
         "ui",
@@ -21,7 +21,8 @@
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",
-            "require": "./dist/cjs/index.js"
+            "require": "./dist/cjs/index.js",
+            "types": "./dist/types/index.d.ts"
         }
     },
     "scripts": {
@@ -55,6 +56,7 @@
         "store2": "^2.14.4",
         "storybook": "^8.5.2",
         "vite-plugin-dts": "^4.5.0",
+        "vite-plugin-lib-inject-css": "^2.2.1",
         "vitest": "^3.0.4"
     },
     "devDependencies": {
