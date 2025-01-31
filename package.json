@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "storybook": "storybook dev -p 6006",
+    "build": "run-s storybook:build",
     "storybook:build": "storybook build -o ./docs",
-    "storybook:publish": "yarn run storybook:build && touch ./docs/.nojekyll",
+    "storybook:publish": "npm run storybook:build && node -e \"require('fs').closeSync(require('fs').openSync('./docs/.nojekyll', 'w'))\"",
     "lint": "eslint ."
   },
   "dependencies": {
