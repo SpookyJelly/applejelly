@@ -6,13 +6,22 @@ import path from 'path'
 export default defineConfig({
     plugins: [react(), dts()],
     build: {
+        outDir: 'dist',
         lib: {
             entry: './src/index.ts',
             name: 'applejelly',
             fileName: (format) => `index.${format}.js`,
             formats: ['es', 'cjs'],
         },
-        rollupOptions: {},
+        rollupOptions: {
+            external: ['react', 'react-dom'],
+            output: {
+                globals: {
+                    react: 'React',
+                    'react-dom': 'ReactDOM',
+                },
+            },
+        },
     },
     resolve: {
         alias: {

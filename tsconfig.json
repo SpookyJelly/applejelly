@@ -9,8 +9,12 @@
         "paths": {
             "@applejelly/*": ["src/*"]
         },
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "sourceMap": true,
         /* Bundler mode */
-        "moduleResolution": "bundler", // Specifies how modules are resolved when bundling.
         "allowImportingTsExtensions": true, // Allows importing TypeScript files with extensions.
         "resolveJsonModule": true, // Enables importing JSON modules.
         "isolatedModules": true, // Ensures each file is treated as a separate module.
