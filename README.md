@@ -1,30 +1,63 @@
-# React + TypeScript + Vite
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d19d6c78-a51b-4794-80a2-cd48228a6521" alt="logo" width="150px"/>
+  <h1>AppleJelly</h1>
+  <span><img src="https://img.shields.io/github/package-json/v/SpookyJelly/applejelly?color=brightgreen"/></span>
+<span><img src="https://badgen.net/badge/Built%20With/TypeScript/blue"/></span>
+</div>
+<hr/>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of contents
 
-Currently, two official plugins are available:
+-   [Introduction](#introduction)
+-   [Features](#features)
+-   [Getting Started](#getting-started)
+-   [Contributing](#contributing)
+-   [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Introduction
 
-## Expanding the ESLint configuration
+**AppleJelly** is a modern headless component library designed to deliver flexible, unstyled UI primitives while prioritizing accessibility and developer experience. Inspired by DataDog's DRUIDS architecture, AppleJelly provides robust functionality without imposing styling decisions, allowing developers to implement custom designs effortlessly. The library features automatic theme switching based on the user's `prefers-color-scheme` media query while supporting manual theme overrides.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Features
 
-- Configure the top-level `parserOptions` property like this:
+-   **Headless Components**  
+    Focus on functionality without baked-in styling – bring your own CSS or favorite styling solution.
+-   **DRUIDS-Inspired Architecture**  
+    Built with the same modular philosophy as DataDog's DRUIDS, emphasizing clean separation of logic and presentation.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+-   **Automatic Theme Detection**  
+    Components automatically adapt to OS-level light/dark theme preferences via CSS media queries.
+
+-   **Accessibility First**  
+    Full WAI-ARIA compliance and keyboard navigation support out of the box.
+
+-   **Theme Customization**  
+    Override auto-detected themes using CSS variables or component props for granular control.
+
+### Getting Started
+
+```bash
+npm install applejelly
+# or
+yarn add applejelly
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Detailed Usages and API is on [HERE](TODO://replacethislink)
+
+### Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+
+2. Create a feature branch (git checkout -b feat/amazing-feature)
+
+3. Commit your changes with semantic commit messages
+
+4. Push to the branch (git push origin feat/amazing-feature)
+
+5. Open a Pull Request
+
+### License
+
+MIT
