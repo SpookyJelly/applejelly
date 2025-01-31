@@ -16,18 +16,26 @@ export default defineConfig({
         lib: {
             entry: path.resolve(__dirname, 'src/index.ts'),
             name: 'applejelly',
-            formats: ['es', 'cjs'],
         },
         rollupOptions: {
             external: ['react', 'react-dom'],
-            output: {
-                // 단일 출력 구성으로 변경
-                dir: 'dist',
-                format: 'es',
-                preserveModules: true,
-                preserveModulesRoot: 'src',
-                entryFileNames: '[format]/[name].js',
-            },
+            output: [
+                {
+                    // 단일 출력 구성으로 변경
+                    dir: 'dist/esm',
+                    format: 'es',
+                    preserveModules: true,
+                    preserveModulesRoot: 'src',
+                    entryFileNames: '[name].js',
+                },
+                {
+                    dir: 'dist/cjs',
+                    format: 'cjs',
+                    preserveModules: true,
+                    preserveModulesRoot: 'src',
+                    entryFileNames: '[name].js',
+                },
+            ],
             plugins: [
                 postcss({
                     extract: true,
