@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import { Autocomplete } from "applejelly";
+import { AutoComplete } from "applejelly";
 
 const meta = {
   title: "applejelly/autocomplete/Autocomplete",
-  component: Autocomplete,
+  component: AutoComplete,
   args: {
     data: [
       { value: "apple", type: "fruit", subType: "sour" },
@@ -27,7 +27,7 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof Autocomplete>;
+} satisfies Meta<typeof AutoComplete>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

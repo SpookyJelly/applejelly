@@ -1,3 +1,0 @@
-import{j as s}from"./jsx-runtime-Cw8dmJ57.js";import{F as a}from"./index-C9BqlD_n.js";import"./index-C57_-39e.js";import"./index-B_KJRbAy.js";import"./index-D9XJHvQl.js";const c=s.jsx("div",{style:{color:"white"},children:"Tooltips!"}),i=s.jsx("div",{style:{color:"black"},children:"Hover me!"}),u={title:"applejelly/dialogs/Tooltip",component:a,tags:["autodocs"],args:{contents:c,children:i},parameters:{layout:"centered"}},o={args:{}};var t,e,r;o.parameters={...o.parameters,docs:{...(t=o.parameters)==null?void 0:t.docs,source:{originalSource:`{
-  args: {}
-}`,...(r=(e=o.parameters)==null?void 0:e.docs)==null?void 0:r.source}}};const g=["Basic"];export{o as Basic,g as __namedExportsOrder,u as default};

@@ -1,0 +1,3 @@
+import{a as s}from"./index-DpuSo-Dk.js";import"./index-C57_-39e.js";import{T as t}from"./constants-Bf6ZKvub.js";import"./index-B_KJRbAy.js";import"./index-D9XJHvQl.js";const l={title:"applejelly/misc/LoadingIndicator",component:s,args:{size:"md"},argTypes:{isAnimated:{control:"boolean"},size:{control:"select",options:t},isKnockout:{control:"boolean"}},parameters:{layout:"centered"},tags:["autodocs"]},o={args:{}};var r,a,e;o.parameters={...o.parameters,docs:{...(r=o.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  args: {}
+}`,...(e=(a=o.parameters)==null?void 0:a.docs)==null?void 0:e.source}}};const d=["Basic"];export{o as Basic,d as __namedExportsOrder,l as default};

@@ -1,0 +1,3 @@
+import{E as t}from"./index-DpuSo-Dk.js";import"./index-C57_-39e.js";import"./index-B_KJRbAy.js";import"./index-D9XJHvQl.js";const i={title:"applejelly/form/Checkbox",component:t,parameters:{layout:"centered"},tags:["autodocs"],argTypes:{isChecked:{type:"boolean"},isDisabled:{type:"boolean"},isIndeterminate:{type:"boolean"},isReadOnly:{type:"boolean"}}},e={args:{}};var o,a,r;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:`{
+  args: {}
+}`,...(r=(a=e.parameters)==null?void 0:a.docs)==null?void 0:r.source}}};const m=["Basic"];export{e as Basic,m as __namedExportsOrder,i as default};

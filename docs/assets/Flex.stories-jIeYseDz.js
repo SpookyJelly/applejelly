@@ -1,0 +1,6 @@
+import{j as e}from"./jsx-runtime-Cw8dmJ57.js";import{G as c,R as t,O as o}from"./index-DpuSo-Dk.js";import"./index-C57_-39e.js";import"./index-B_KJRbAy.js";import"./index-D9XJHvQl.js";const u={title:"applejelly/layout/Flex",component:c,parameters:{layout:"centered"},argTypes:{},tags:["autodocs"]},a=e.jsxs(e.Fragment,{children:[e.jsx(t,{children:e.jsx(o,{children:"First element"})}),e.jsx(t,{children:e.jsxs(o,{children:["Second element Second element",e.jsx("br",{}),"Second element Second element",e.jsx("br",{}),"Second element Second element"]})}),e.jsx("div",{style:{width:200,height:100,backgroundColor:"red"}}),e.jsx(t,{children:e.jsxs(o,{children:["Fourth element",e.jsx("br",{}),"Fourth element",e.jsx("br",{}),"Fourth element",e.jsx("br",{}),"Fourth element",e.jsx("br",{}),"Fourth element"]})}),e.jsx("div",{style:{width:200,height:100,backgroundColor:"blue"}})]}),r={args:{},decorators:[d=>e.jsx(c,{children:a})]};var n,s,l;r.parameters={...r.parameters,docs:{...(n=r.parameters)==null?void 0:n.docs,source:{originalSource:`{
+  args: {},
+  decorators: [Story => {
+    return <Flex>{content}</Flex>;
+  }]
+}`,...(l=(s=r.parameters)==null?void 0:s.docs)==null?void 0:l.source}}};const p=["Basic"];export{r as Basic,p as __namedExportsOrder,u as default};

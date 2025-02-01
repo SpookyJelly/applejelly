@@ -10,6 +10,12 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {
+    isChecked: { type: "boolean" },
+    isDisabled: { type: "boolean" },
+    isIndeterminate: { type: "boolean" },
+    isReadOnly: { type: "boolean" },
+  },
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;
