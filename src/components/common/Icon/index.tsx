@@ -10,7 +10,7 @@ import icons from '@applejelly/style/icons'
 import './icon.scss'
 import { TSHIRT_SIZE } from '@applejelly/style/constant'
 
-const BLOCK = 'common_icon'
+const BLOCK = 'AJ-common_icon'
 function Icon({
     name,
     className,
