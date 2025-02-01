@@ -1,4 +1,4 @@
-import{j as e,M as t}from"./index-CUmL2xkx.js";import{useMDXComponents as l}from"./index-y0ifwxXQ.js";import"./iframe-C1gh10oa.js";import"./index-C57_-39e.js";import"./index-B_KJRbAy.js";import"./index-D9XJHvQl.js";import"./index-NOh9rqHv.js";import"./index-ogSvIofg.js";function i(s){const n={a:"a",br:"br",code:"code",h2:"h2",h3:"h3",hr:"hr",img:"img",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...l(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(t,{title:"Introduction"}),`
+import{j as e}from"./jsx-runtime-Cw8dmJ57.js";import{useMDXComponents as l}from"./index-y0ifwxXQ.js";import{M as o}from"./index-C-ysHmo9.js";import"./index-C57_-39e.js";import"./iframe-Clu0pcqb.js";import"./index-B_KJRbAy.js";import"./index-D9XJHvQl.js";import"./index-NOh9rqHv.js";import"./index-ogSvIofg.js";function i(s){const n={a:"a",br:"br",code:"code",h2:"h2",h3:"h3",hr:"hr",img:"img",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...l(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(o,{title:"Introduction"}),`
 `,e.jsxs("div",{align:"center",children:[e.jsx("img",{src:"https://github.com/user-attachments/assets/d19d6c78-a51b-4794-80a2-cd48228a6521",alt:"logo",width:"150px"}),e.jsx("h1",{children:"AppleJelly"})]}),`
 `,e.jsx("hr",{}),`
 `,e.jsx(n.h2,{id:"table-of-contents",children:"Table of contents"}),`
@@ -80,4 +80,4 @@ const App = () => {
 `,e.jsxs(n.p,{children:["If you have an issue to submit, please visit ",e.jsx(n.a,{href:"https://github.com/SpookyJelly/applejelly/issues",rel:"nofollow",children:'"Issues"'}),`.
 If you're using the addon and have questions or suggestions, please use `,e.jsx(n.a,{href:"https://github.com/SpookyJelly/applejelly/discussions",rel:"nofollow",children:'"Discussions"'}),"."]}),`
 `,e.jsx(n.h2,{id:"license",children:"License"}),`
-`,e.jsx(n.p,{children:"MIT"})]})}function x(s={}){const{wrapper:n}={...l(),...s.components};return n?e.jsx(n,{...s,children:e.jsx(i,{...s})}):i(s)}export{x as default};
+`,e.jsx(n.p,{children:"MIT"})]})}function u(s={}){const{wrapper:n}={...l(),...s.components};return n?e.jsx(n,{...s,children:e.jsx(i,{...s})}):i(s)}export{u as default};
