@@ -74,10 +74,7 @@ function Overflower(props: Props) {
         >
             {hasExtraContentInTooltip && beforeContent}
             {isTooltipContentArray
-                ? (Array.isArray(tooltipContentValue)
-                      ? tooltipContentValue
-                      : []
-                  ).map((content, index) => {
+                ? tooltipContentValue.map((content, index) => {
                       return typeof content === 'string' ? (
                           <span key={index}>{content}</span>
                       ) : (
@@ -88,6 +85,9 @@ function Overflower(props: Props) {
             {hasExtraContentInTooltip && afterContent}
         </div>
     )
+
+    console.log('tooltipContentElement', tooltipContentValue)
+    console.log(' tool ', tooltipContentElement)
 
     const hasTooltipOverflow =
         !isNested &&
@@ -106,9 +106,9 @@ function Overflower(props: Props) {
     )
     const hasTooltipContent = !propAs && tooltip
 
-    // @ts-expect-error
     const [Comp, compProps] = useAsComponent(finalPropAs)
 
+    // const Wrapper = isNested ? Element : Comp
     const Wrapper = Comp
     const contextSize = getContextSizeOrSize('md')
     const sizeValue = compProps.size || size || contextSize
@@ -153,13 +153,14 @@ function Overflower(props: Props) {
             {afterContentElement}
         </>
     )
+    console.log('overflower', overflower)
 
     const calcHeight =
         typeof height === 'number' && paddingY
             ? height + SPACING_VALUES[paddingY]
             : height
     const isNotAutoHeight = Boolean(calcHeight && calcHeight !== 'auto')
-
+    console.log('outerBeforeContentElement', outerBeforeContentElement)
     const renderContent = () => (
         <>
             {outerBeforeContentElement}
@@ -181,7 +182,7 @@ function Overflower(props: Props) {
                             <Tooltip
                                 display="inline-flex"
                                 className={`${BLOCK}__overflow-content`}
-                                content={tooltipContentElement}
+                                contents={tooltipContentElement}
                                 style={{
                                     width: '100%',
                                 }}
@@ -206,13 +207,13 @@ function Overflower(props: Props) {
         </>
     )
 
-    const wrapperStyle = React.useMemo(() => {
-        return !isNested &&
-            (isNotAutoHeight ||
-                paddingX ||
-                paddingY ||
-                maxWidth ||
-                verticalAlign !== 'baseline')
+    const wrapperStyle =
+        !isNested &&
+        (isNotAutoHeight ||
+            paddingX ||
+            paddingY ||
+            maxWidth ||
+            verticalAlign !== 'baseline')
             ? {
                   '--overflower-padding-x': getSpaceValue(paddingX),
                   '--overflower-padding-y': getSpaceValue(paddingY),
@@ -236,15 +237,6 @@ function Overflower(props: Props) {
                           : undefined,
               }
             : {}
-    }, [
-        isNested,
-        isNotAutoHeight,
-        paddingX,
-        paddingY,
-        maxWidth,
-        verticalAlign,
-        calcHeight,
-    ])
 
     const getFilteredStyle = React.useCallback(() => {
         if (wrapperStyle) {
