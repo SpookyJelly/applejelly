@@ -9,7 +9,7 @@ import cn from 'classnames'
 import { SizeContext, useSizeContext } from '../../../context'
 import './group.scss'
 
-const BLOCK = 'form_group'
+const BLOCK = 'AJ-form_group'
 function Group({
     children,
     size = 'md',

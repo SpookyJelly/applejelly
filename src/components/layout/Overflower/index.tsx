@@ -24,7 +24,7 @@ import {
 } from '../../../helpers'
 import './overflower.scss'
 
-const BLOCK = 'layout_overflower'
+const BLOCK = 'AJ-layout_overflower'
 function Overflower(props: Props) {
     const {
         as: propAs,

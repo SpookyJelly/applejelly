@@ -29,7 +29,7 @@ import {
 import { PopoverContext } from '@applejelly/context'
 import Tooltip, { TooltipProps } from '@applejelly/components/dialogs/Tooltip'
 
-const BLOCK = 'dialogs_popover'
+const BLOCK = 'AJ-dialogs_popover'
 const Popover = React.forwardRef(
     (
         {

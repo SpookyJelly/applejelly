@@ -11,7 +11,7 @@ import {
 import type { SPACING_SIZE, TSHIRT_SIZE } from '../../../helpers'
 import './text.scss'
 
-const BLOCK = 'typography_text'
+const BLOCK = 'AJ-typography_text'
 
 const Text: React.FC<TextProps> = (props: TextProps) => {
     const {

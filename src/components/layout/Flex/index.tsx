@@ -11,7 +11,7 @@ import type { SPACING_SIZE } from '../../../helpers'
 import { getSpaceValue, useAsComponent } from '../../../utils'
 import './Flex.scss'
 
-const BLOCK = 'layout_flex'
+const BLOCK = 'AJ-layout_flex'
 const Flex = React.forwardRef((props: FlexProps, ref) => {
     const {
         children,

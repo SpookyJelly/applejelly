@@ -8,7 +8,7 @@ import React from 'react'
 import cn from 'classnames'
 import './clickOutside.scss'
 
-const BLOCK = 'misc_clickoutside'
+const BLOCK = 'AJ-misc_clickoutside'
 
 export const useClickOutsideProps = ({
     isDisabled,

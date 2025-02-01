@@ -37,7 +37,7 @@ import { useCombobox, useMultipleSelection } from 'downshift'
 import { useSource } from './hooks'
 import { renderDropdown, renderFakePanel } from './dropdownEl'
 
-export const ROOT_CLASS = 'autocomplete'
+export const BLOCK = 'AJ-autocomplete'
 
 function AutoComplete({
     data,
@@ -239,10 +239,10 @@ function AutoComplete({
     })
 
     const classes = classNames(
-        ROOT_CLASS,
+        BLOCK,
         {
-            [`${ROOT_CLASS}--has-clear-button`]: hasClearButton,
-            [`${ROOT_CLASS}--is-open`]: comboBox.isOpen,
+            [`${BLOCK}--has-clear-button`]: hasClearButton,
+            [`${BLOCK}--is-open`]: comboBox.isOpen,
         },
         {
             ['--sm']: rest.size === 'sm',
@@ -268,18 +268,12 @@ function AutoComplete({
                 validationMessage={rest.validationMessage}
             >
                 <div
-                    className={classNames(
-                        ROOT_CLASS + '__input-wrapper',
-                        '--open'
-                    )}
+                    className={classNames(BLOCK + '__input-wrapper', '--open')}
                 >
                     <div
-                        className={classNames(
-                            ROOT_CLASS + '__layout-container',
-                            {
-                                '--warp': rest.overflowerType === 'gradient',
-                            }
-                        )}
+                        className={classNames(BLOCK + '__layout-container', {
+                            '--warp': rest.overflowerType === 'gradient',
+                        })}
                     >
                         {selectedItems.map((item, i) => (
                             <div key={i}>
@@ -353,13 +347,13 @@ function AutoComplete({
                                     zIndex: 1500,
                                     minWidth: panelMode === 'list' ? 200 : 500,
                                 }}
-                                className={classNames(ROOT_CLASS, '--shadow')}
+                                className={classNames(BLOCK, '--shadow')}
                             >
                                 {panelMode === 'list' && (
                                     <>
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__input-wrapper',
+                                                BLOCK + '__input-wrapper',
                                                 '--focus',
                                                 '--open'
                                             )}
@@ -367,7 +361,7 @@ function AutoComplete({
                                         >
                                             <div
                                                 className={classNames(
-                                                    ROOT_CLASS +
+                                                    BLOCK +
                                                         '__layout-container',
                                                     {
                                                         '--warp':
@@ -392,7 +386,7 @@ function AutoComplete({
                                         </div>
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__menu'
+                                                BLOCK + '__menu'
                                             )}
                                         >
                                             <div
@@ -400,9 +394,8 @@ function AutoComplete({
                                                     ref: parentRef,
                                                 })}
                                                 className={classNames(
-                                                    ROOT_CLASS +
-                                                        '__custom-scroll',
-                                                    ROOT_CLASS + '__list'
+                                                    BLOCK + '__custom-scroll',
+                                                    BLOCK + '__list'
                                                 )}
                                             >
                                                 {renderDropdown({
@@ -429,7 +422,7 @@ function AutoComplete({
                                     <>
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__input-wrapper',
+                                                BLOCK + '__input-wrapper',
                                                 '--focus',
                                                 '--open'
                                             )}
@@ -439,7 +432,7 @@ function AutoComplete({
                                         >
                                             <div
                                                 className={classNames(
-                                                    ROOT_CLASS +
+                                                    BLOCK +
                                                         '__layout-container',
                                                     {
                                                         '--warp':
@@ -480,16 +473,16 @@ function AutoComplete({
                                         </div>
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__menu'
+                                                BLOCK + '__menu'
                                             )}
                                         >
                                             <div className="--flex">
                                                 <div
                                                     className={classNames(
                                                         panelClasses,
-                                                        ROOT_CLASS + '__panel',
+                                                        BLOCK + '__panel',
                                                         '--activated',
-                                                        ROOT_CLASS +
+                                                        BLOCK +
                                                             '__custom-scroll'
                                                     )}
                                                     ref={typePanelRef}
@@ -562,8 +555,8 @@ function AutoComplete({
                                                     ref={subTypePanelRef}
                                                     className={classNames(
                                                         panelClasses,
-                                                        ROOT_CLASS + '__panel',
-                                                        ROOT_CLASS +
+                                                        BLOCK + '__panel',
+                                                        BLOCK +
                                                             '__custom-scroll',
                                                         {
                                                             '--activated':
@@ -643,7 +636,7 @@ function AutoComplete({
                                                     className={classNames(
                                                         panelClasses +
                                                             '--value',
-                                                        ROOT_CLASS + '__menu'
+                                                        BLOCK + '__menu'
                                                     )}
                                                 >
                                                     <div
@@ -652,7 +645,7 @@ function AutoComplete({
                                                             maxHeight: 210,
                                                         }}
                                                         className={classNames(
-                                                            ROOT_CLASS +
+                                                            BLOCK +
                                                                 '__custom-scroll'
                                                         )}
                                                         {...comboBox.getMenuProps(

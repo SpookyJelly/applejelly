@@ -14,7 +14,7 @@ import { TSHIRT_SIZE } from '@applejelly/style/constant'
 import { IconsProps } from '@storybook/components'
 import Overflower from '@applejelly/components/layout/Overflower'
 import { getBasePropsClassnames, omitBaseProps } from '@applejelly/helpers'
-const BLOCK = 'form_checkbox'
+const BLOCK = 'AJ-form_checkbox'
 function Checkbox({
     isDisabled = false,
     isChecked,
@@ -23,7 +23,7 @@ function Checkbox({
     isIndeterminate = false,
     // inputAttributes,
     id,
-    size = 'md',
+    size = 'xxl',
     value,
     label,
     hasOverflower,
@@ -79,8 +79,10 @@ function Checkbox({
         // useFocusVisible
     }, [])
 
+    console.log('size', sizeValue)
+
     return (
-        <Text {...restProps} size={sizeValue} className={classes}>
+        <Text {...restProps} as="label" size={sizeValue} className={classes}>
             <input
                 ref={inputRef}
                 className={cn(`${BLOCK}__input`, rest.inputClassName)}
@@ -95,7 +97,12 @@ function Checkbox({
                 onClick={handleClick}
                 {...rest}
             />
-            <Flex alignItems={'center'} isInline className={`${BLOCK}__label`}>
+            <Flex
+                alignItems={'center'}
+                isInline
+                className={`${BLOCK}__label`}
+                style={{ minWidth: 12 }}
+            >
                 <Icon
                     name={iconName}
                     size={sizeValue}

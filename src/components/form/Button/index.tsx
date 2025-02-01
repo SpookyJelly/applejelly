@@ -13,7 +13,7 @@ import Icon from '@applejelly/components/common/Icon'
 import LoadingIndicator from '@applejelly/components/misc/LoadingIndicator'
 import { background } from '@storybook/theming'
 
-const ROOT = 'form_button'
+const BLOCK = 'AJ-form_button'
 
 const IconElement = ({
     isLoading,
@@ -36,11 +36,11 @@ const IconElement = ({
         boxShadow: 'none',
     }
     if (isLoading) {
-        return <LoadingIndicator size={size} className={cn(`${ROOT}__icon`)} />
+        return <LoadingIndicator size={size} className={cn(`${BLOCK}__icon`)} />
     }
     if (icon) {
         return (
-            <div className={cn(ROOT + '__icon-wrapper')}>
+            <div className={cn(BLOCK + '__icon-wrapper')}>
                 <Icon
                     style={isHighlighted ? highlightStyle : {}}
                     name={icon}
@@ -48,7 +48,7 @@ const IconElement = ({
                     size={size}
                     fill="currentColor"
                     isScaleDown={shouldScaleIcon}
-                    className={cn(`${ROOT}__icon`, iconClassName, 'icon')}
+                    className={cn(`${BLOCK}__icon`, iconClassName, 'icon')}
                 />
             </div>
         )
@@ -93,7 +93,9 @@ function Button({
     // const sizeValue = size  || contextSize
 
     const isButtonActive = isPrimary || isActive
-    const iconClassName = label ? `${ROOT}__icon--position-${iconPosition}` : ''
+    const iconClassName = label
+        ? `${BLOCK}__icon--position-${iconPosition}`
+        : ''
     const shouldScaleIcon =
         !(isBorderless || isDangerouslyNaked || isNaked) || !label
 
@@ -102,23 +104,23 @@ function Button({
         ...dataAttrs,
         'aria-label': ariaLabel,
         className: cn(
-            ROOT,
-            `${ROOT}--${size}`,
-            `${ROOT}--${level}`,
+            BLOCK,
+            `${BLOCK}--${size}`,
+            `${BLOCK}--${level}`,
             // extraClasses,
             {
-                // [`${ROOT}--has-icon-only`]: !label && !featureStatusLabel,
-                [`${ROOT}--has-icon-only`]: !label,
-                [`${ROOT}--has-ellipsis`]: hasEllipsis,
-                [`${ROOT}--is-borderless`]: isBorderless || isShade,
-                [`${ROOT}--is-naked`]:
+                // [`${BLOCK}--has-icon-only`]: !label && !featureStatusLabel,
+                [`${BLOCK}--has-icon-only`]: !label,
+                [`${BLOCK}--has-ellipsis`]: hasEllipsis,
+                [`${BLOCK}--is-borderless`]: isBorderless || isShade,
+                [`${BLOCK}--is-naked`]:
                     (isDangerouslyNaked || isNaked) && !isShade,
-                [`${ROOT}--is-primary`]: isButtonActive,
-                [`${ROOT}--is-shade`]: isShade,
-                [`${ROOT}--is-full-width`]: isFullWidth,
-                [`${ROOT}--is-active`]: isActive,
-                [`${ROOT}--is-hovered`]: isHoveredState,
-                [`${ROOT}--is-disabled`]: isDisabled || isLoading,
+                [`${BLOCK}--is-primary`]: isButtonActive,
+                [`${BLOCK}--is-shade`]: isShade,
+                [`${BLOCK}--is-full-width`]: isFullWidth,
+                [`${BLOCK}--is-active`]: isActive,
+                [`${BLOCK}--is-hovered`]: isHoveredState,
+                [`${BLOCK}--is-disabled`]: isDisabled || isLoading,
             },
             className
         ),
@@ -133,7 +135,7 @@ function Button({
     }
 
     // if (isLoading) {
-    //     <LoadingIndicator size={size} className={cn(`${ROOT}`)} />
+    //     <LoadingIndicator size={size} className={cn(`${BLOCK}`)} />
     // }
 
     return (
@@ -149,14 +151,16 @@ function Button({
                 // isActive={isActive}
             />
             <span
-                className={cn(`${ROOT}__content`, {
+                className={cn(`${BLOCK}__content`, {
                     __ellipsis: hasEllipsis,
                 })}
             >
                 {label}
             </span>
             {rest.children && (
-                <span className={cn(`${ROOT}__children`)}>{rest.children}</span>
+                <span className={cn(`${BLOCK}__children`)}>
+                    {rest.children}
+                </span>
             )}
         </button>
     )

@@ -9,7 +9,7 @@ import classNames from 'classnames'
 import { isMac, getContextSizeOrSize } from '../../../utils'
 import './keycap.scss'
 
-const rootClass = 'keycap'
+const BLOCK = 'AJ-keycap'
 const sizeList = ['xs', 'sm', 'md', 'lg']
 const keymap = {
     alt: isMac() ? 'opt' : 'alt',
@@ -32,13 +32,13 @@ function KeyCap({
     const isCmdKey = ['mod', 'cmd', '⌘'].includes(keycapValue) && isMac()
 
     const classes = classNames(
-        rootClass,
-        `${rootClass}--${sizeValue}`,
-        `${rootClass}--${variant}`,
+        BLOCK,
+        `${BLOCK}--${sizeValue}`,
+        `${BLOCK}--${variant}`,
         {
-            [`${rootClass}--is-cmd-key`]: isCmdKey,
-            [`${rootClass}--is-arrow-key`]: isArrowKey,
-            [`${rootClass}--no-capitalize`]: hasNoCapitalize,
+            [`${BLOCK}--is-cmd-key`]: isCmdKey,
+            [`${BLOCK}--is-arrow-key`]: isArrowKey,
+            [`${BLOCK}--no-capitalize`]: hasNoCapitalize,
         },
         className
     )

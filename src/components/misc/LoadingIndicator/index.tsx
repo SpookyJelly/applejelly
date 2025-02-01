@@ -14,7 +14,7 @@ const isValidBrowser = /^((?!chrome|android).)*safari/i.test(
     navigator.userAgent
 )
 
-const BLOCK = 'misc_loading-indicator'
+const BLOCK = 'AJ-misc_loading-indicator'
 function LoadingIndicator({
     className,
     isAnimated = true,

@@ -10,7 +10,7 @@ import './grid.scss'
 import { getSpaceValue } from '../../../utils'
 import { getBaseProps, MarginProps, PaddingProps } from '../../../helpers'
 
-const BLOCK = 'layout_grid'
+const BLOCK = 'AJ-layout_grid'
 const isGridDimensionValid = (dimension) =>
     typeof dimension === 'number' ||
     dimension === 'auto-fit' ||

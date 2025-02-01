@@ -7,7 +7,7 @@ import HighlightKeywords from '../../misc/HighlightKeywords'
 import Icon from '../../common/Icon'
 import { DropdownItem } from '../shared/commons'
 
-const ROOT_CLASS = 'autocomplete__dropdown'
+const BLOCK = 'autocomplete__dropdown'
 
 const defineIconColor = <T,>(selectedItems: T[], item: T) => {
     return selectedItems.includes(item) ? 'black' : 'rgba(28,43,52,0.1)'
@@ -23,14 +23,10 @@ export const renderDropdown = ({
     displayProperties,
 }: Props) => {
     if (isLoading)
-        return (
-            <div className={classNames(ROOT_CLASS + '-empty')}>Loading...</div>
-        )
+        return <div className={classNames(BLOCK + '-empty')}>Loading...</div>
     if (items.length === 0)
         return (
-            <div className={classNames(ROOT_CLASS + '-empty')}>
-                No results found
-            </div>
+            <div className={classNames(BLOCK + '-empty')}>No results found</div>
         )
 
     const dValue = displayProperties ? displayProperties.id : 'value'
@@ -96,7 +92,7 @@ export const renderDropdown = ({
 
     return (
         <div
-            className={classNames(ROOT_CLASS + '_list')}
+            className={classNames(BLOCK + '_list')}
             style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
         >
             {rowVirtualizer.getVirtualItems().map((virtualRow) => {
@@ -110,7 +106,7 @@ export const renderDropdown = ({
                             index: virtualRow.index,
                             item: items[virtualRow.index],
                         })}
-                        className={classNames(ROOT_CLASS + '_list-item', {
+                        className={classNames(BLOCK + '_list-item', {
                             '--focused': isHighlighted,
                         })}
                         style={{

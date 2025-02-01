@@ -1,12 +1,16 @@
-.layout_grid-item {
-  --grid-area: initial;
-  --grid-column-span: 1;
-  --grid-row-span: 1;
-  --grid-column-start: auto;
-  --grid-row-start: auto;
-  grid-area: var(--grid-area,var(--grid-row-start)/var(--grid-column-start)/span var(--grid-row-span)/span var(--grid-column-span));
+.AJ-layout_grid-item {
+    --grid-area: initial;
+    --grid-column-span: 1;
+    --grid-row-span: 1;
+    --grid-column-start: auto;
+    --grid-row-start: auto;
+    grid-area: var(
+        --grid-area,
+        var(--grid-row-start) / var(--grid-column-start) / span
+            var(--grid-row-span) / span var(--grid-column-span)
+    );
 
-  &--should-inherit-grid[class] {
-    --grid-columns-count: var(--grid-column-span, auto-fit);
-  }
+    &--should-inherit-grid[class] {
+        --grid-columns-count: var(--grid-column-span, auto-fit);
+    }
 }

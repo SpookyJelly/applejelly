@@ -42,7 +42,7 @@ import { useAsyncComboBox, useDidMountEffect } from './hooks'
 import { convertCategoryPropsToTree } from './utils'
 import Button from '@applejelly/components/form/Button'
 
-export const ROOT_CLASS = 'autocomplete'
+export const BLOCK = 'AJ-autocomplete'
 
 function AsyncAutoComplete({
     creatable,
@@ -232,10 +232,10 @@ function AsyncAutoComplete({
     })
 
     const classes = classNames(
-        ROOT_CLASS,
+        BLOCK,
         {
-            [`${ROOT_CLASS}--has-clear-button`]: hasClearButton,
-            [`${ROOT_CLASS}--is-open`]: comboBox.isOpen,
+            [`${BLOCK}--has-clear-button`]: hasClearButton,
+            [`${BLOCK}--is-open`]: comboBox.isOpen,
         },
         {
             ['--sm']: rest.size === 'sm',
@@ -266,12 +266,12 @@ function AsyncAutoComplete({
                     type={type}
                     displayProperties={rest.displayProperties}
                     fpState={fpState}
-                    rootClassName={ROOT_CLASS}
+                    rootClassName={BLOCK}
                 />
             )
         if (inputValue.length < rest.minSearchLength)
             return (
-                <div className={classNames(ROOT_CLASS + '__indicator')}>
+                <div className={classNames(BLOCK + '__indicator')}>
                     Type {rest.minSearchLength - inputValue.length} more
                     characters to search
                 </div>
@@ -295,17 +295,13 @@ function AsyncAutoComplete({
                 validationMessage={rest.validationMessage}
             >
                 <ExpandableInputWrapper
-                    rootClass={ROOT_CLASS}
+                    rootClass={BLOCK}
                     isOpen={false}
                     overflowerType={rest.overflowerType}
                 >
                     {selectedItems.map((item, i) => (
                         <div key={i}>
-                            <p
-                                className={classNames(
-                                    ROOT_CLASS + '__ellipsis'
-                                )}
-                            >
+                            <p className={classNames(BLOCK + '__ellipsis')}>
                                 {item[rest.displayProperties.id]}
                             </p>
                         </div>
@@ -374,12 +370,12 @@ function AsyncAutoComplete({
                                     zIndex: 1500,
                                     minWidth: panelMode === 'list' ? 200 : 500,
                                 }}
-                                className={classNames(ROOT_CLASS, '--shadow')}
+                                className={classNames(BLOCK, '--shadow')}
                             >
                                 {panelMode === 'list' && (
                                     <>
                                         <ExpandableInputWrapper
-                                            rootClass={ROOT_CLASS}
+                                            rootClass={BLOCK}
                                             isOpen={true}
                                             keydownHandler={
                                                 keydownHandler['list']
@@ -404,7 +400,7 @@ function AsyncAutoComplete({
                                         {/* Value */}
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__menu',
+                                                BLOCK + '__menu',
                                                 {
                                                     '--guide': Boolean(
                                                         rest.hasGuide
@@ -417,9 +413,8 @@ function AsyncAutoComplete({
                                                     ref: parentRef,
                                                 })}
                                                 className={classNames(
-                                                    ROOT_CLASS +
-                                                        '__custom-scroll',
-                                                    ROOT_CLASS + '__list'
+                                                    BLOCK + '__custom-scroll',
+                                                    BLOCK + '__list'
                                                 )}
                                             >
                                                 {valuePanelRenderer('list')}
@@ -435,7 +430,7 @@ function AsyncAutoComplete({
                                 {panelMode === 'category' && (
                                     <div>
                                         <ExpandableInputWrapper
-                                            rootClass={ROOT_CLASS}
+                                            rootClass={BLOCK}
                                             isOpen={true}
                                             overflowerType={rest.overflowerType}
                                             keydownHandler={
@@ -478,7 +473,7 @@ function AsyncAutoComplete({
 
                                         <div
                                             className={classNames(
-                                                ROOT_CLASS + '__menu',
+                                                BLOCK + '__menu',
                                                 {
                                                     '--guide': Boolean(
                                                         rest.hasGuide
@@ -490,7 +485,7 @@ function AsyncAutoComplete({
                                                 {/* Type Panel  */}
                                                 <FakeTypePanelComponent
                                                     ref={typePanelRef}
-                                                    rootClass={ROOT_CLASS}
+                                                    rootClass={BLOCK}
                                                     panelClass={panelClasses}
                                                     fpState={fpState}
                                                     dispatch={dispatch}
@@ -501,7 +496,7 @@ function AsyncAutoComplete({
                                                 {/* SubType */}
                                                 <FakeSubTypePanelComponent
                                                     ref={subTypePanelRef}
-                                                    rootClass={ROOT_CLASS}
+                                                    rootClass={BLOCK}
                                                     panelClass={panelClasses}
                                                     fpState={fpState}
                                                     //@ts-ignore
@@ -515,13 +510,13 @@ function AsyncAutoComplete({
                                                     className={classNames(
                                                         panelClasses +
                                                             '--value',
-                                                        ROOT_CLASS + '__menu',
+                                                        BLOCK + '__menu',
                                                         '--category'
                                                     )}
                                                 >
                                                     <div
                                                         className={classNames(
-                                                            ROOT_CLASS +
+                                                            BLOCK +
                                                                 '__custom-scroll'
                                                         )}
                                                         {...comboBox.getMenuProps(

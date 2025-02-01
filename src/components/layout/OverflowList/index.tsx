@@ -20,7 +20,7 @@ import type { SPACING_SIZE, Justify, AlignItem } from '../../../types'
 import useDynamicChildrenVisibility from './useDynamicChildrenVisibility'
 import './overflow-list.scss'
 
-const BLOCK = 'layout_overflow-list'
+const BLOCK = 'AJ-layout_overflow-list'
 export const LAST_VISIBLE_ITEM = 'lastVisibleItem'
 export const DATA_LAST_VISIBLE_ITEM = `data-${Case.kebab(LAST_VISIBLE_ITEM)}`
 const EMPTY_ITEMS = []

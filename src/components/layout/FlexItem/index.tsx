@@ -10,7 +10,7 @@ import { MarginProps, PaddingProps, getBaseProps } from '../../../helpers'
 import { useAsComponent } from '../../../utils'
 import './flex-item.scss'
 
-const BLOCK = 'layout_flex-item'
+const BLOCK = 'AJ-layout_flex-item'
 const FlexItem = React.forwardRef((props: FlexItemProps, ref) => {
     const {
         shrink = 0,

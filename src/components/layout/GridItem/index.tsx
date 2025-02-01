@@ -9,7 +9,7 @@ import React from 'react'
 import classNames from 'classnames'
 import './grid-item.scss'
 
-const rootClass = 'layout_grid-item'
+const rootClass = 'AJ-layout_grid-item'
 
 function GridItem({
     colSpan,

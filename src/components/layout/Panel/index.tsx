@@ -16,7 +16,7 @@ import { useAsComponent } from '../../../utils'
 import type { Level } from '../../../types'
 import './panel.scss'
 
-const BLOCK = 'layout_panel'
+const BLOCK = 'AJ-layout_panel'
 function Panel(props: Props) {
     const {
         className,

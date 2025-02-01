@@ -13,7 +13,7 @@ import KeyCap from '../KeyCap'
 import Spacing from '../../layout/Spacing'
 import Text from '../Text'
 
-const rootClass = 'keyboard-shortcut'
+const BLOCK = 'AJ-keyboard-shortcut'
 const sizeList = ['xs', 'sm', 'md', 'lg']
 const keyVariantDic = {
     default: 'default',
@@ -37,7 +37,7 @@ function KeyboardShortcut({
 
     return (
         <span
-            className={classNames(rootClass, className)}
+            className={classNames(BLOCK, className)}
             style={{
                 whiteSpace: 'nowrap',
             }}
@@ -71,7 +71,7 @@ function KeyboardShortcut({
                                 isMonospace
                                 //@ts-ignore
                                 variant={keyVariantDic[variant]}
-                                className={`${rootClass}__separator`}
+                                className={`${BLOCK}__separator`}
                             >
                                 {'+'}
                             </Text>

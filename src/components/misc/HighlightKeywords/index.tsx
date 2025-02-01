@@ -5,7 +5,7 @@ import cn from 'classnames'
 import './highlight-keywords.scss'
 import Highlighter from 'react-highlight-words'
 
-const BLOCK = 'misc_highlight-keywords'
+const BLOCK = 'AJ-misc_highlight-keywords'
 
 const parseStringToArray = (str: string) => {
     if (typeof str !== 'string') return []

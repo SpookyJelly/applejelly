@@ -43,7 +43,7 @@ const getDuration = (isAnimated: boolean, delay: 'none' | 'short' | 'long') => {
 
 const PopoverContext = React.createContext(null)
 
-const BLOCK = 'dialogs_tooltip'
+const BLOCK = 'AJ-dialogs_tooltip'
 function Tooltip({
     onClick,
     contents,

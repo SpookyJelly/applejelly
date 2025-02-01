@@ -1,18 +1,18 @@
-.layout_flex-item {
-  --flex-item-basis: auto;
-  --flex-item-shrink: 0;
-  --flex-item-grow: 0;
-  --flex-item-align: initial;
-  --flex-min-width: initial;
-  --flex-max-width: initial;
-  align-self: var(--flex-item-align);
-  flex: var(--flex-item-grow) var(--flex-item-shrink) var(--flex-item-basis);
+.AJ-layout_flex-item {
+    --flex-item-basis: auto;
+    --flex-item-shrink: 0;
+    --flex-item-grow: 0;
+    --flex-item-align: initial;
+    --flex-min-width: initial;
+    --flex-max-width: initial;
+    align-self: var(--flex-item-align);
+    flex: var(--flex-item-grow) var(--flex-item-shrink) var(--flex-item-basis);
 
-  &--has-min-width {
-    min-width: var(--flex-min-width);
-  }
+    &--has-min-width {
+        min-width: var(--flex-min-width);
+    }
 
-  &--has-max-width {
-    max-width: var(--flex-max-width);
-  }
+    &--has-max-width {
+        max-width: var(--flex-max-width);
+    }
 }

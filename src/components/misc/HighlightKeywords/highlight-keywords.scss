@@ -7,7 +7,7 @@
 @import '@applejelly/style/variables.scss';
 @import '@applejelly/style/global.scss';
 
-.misc_highlight-keywords {
+.AJ-misc_highlight-keywords {
     &__highlighted {
         background-color: var(--keyword-highlight);
         color: var(--ui-text);

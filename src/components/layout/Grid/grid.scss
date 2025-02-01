@@ -1,47 +1,50 @@
-.layout_grid {
-  --grid-template-areas: none;
-  --grid-gap: 16px;
-  --grid-columns-count: auto-fit;
-  --grid-min-width: 0;
-  --grid-width: 1fr;
-  --grid-template-columns: repeat(var(--grid-columns-count),minmax(var(--grid-min-width),var(--grid-width)));
-  --grid-auto-rows: auto;
-  --grid-justify-items: initial;
-  --grid-align-content: initial;
-  --grid-align-items: initial;
-  grid-gap: var(--grid-gap);
-  align-content: var(--grid-align-content);
-  align-items: var(--grid-align-items);
-  grid-auto-rows: var(--grid-auto-rows);
-  grid-template-areas: var(--grid-template-areas);
-  grid-template-columns: var(--grid-template-columns);
-  justify-content: var(--grid-justify-content);
-  justify-items: var(--grid-justify-items);
-  position: relative;
-  display: grid;
+.AJ-layout_grid {
+    --grid-template-areas: none;
+    --grid-gap: 16px;
+    --grid-columns-count: auto-fit;
+    --grid-min-width: 0;
+    --grid-width: 1fr;
+    --grid-template-columns: repeat(
+        var(--grid-columns-count),
+        minmax(var(--grid-min-width), var(--grid-width))
+    );
+    --grid-auto-rows: auto;
+    --grid-justify-items: initial;
+    --grid-align-content: initial;
+    --grid-align-items: initial;
+    grid-gap: var(--grid-gap);
+    align-content: var(--grid-align-content);
+    align-items: var(--grid-align-items);
+    grid-auto-rows: var(--grid-auto-rows);
+    grid-template-areas: var(--grid-template-areas);
+    grid-template-columns: var(--grid-template-columns);
+    justify-content: var(--grid-justify-content);
+    justify-items: var(--grid-justify-items);
+    position: relative;
+    display: grid;
 
-  // &[class] {
-  //   display: grid  
-  // }
+    // &[class] {
+    //   display: grid
+    // }
 
-  &--is-dense {
-    grid-auto-flow: dense  
-  }
+    &--is-dense {
+        grid-auto-flow: dense;
+    }
 
-  &--is-inline[class] {
-    display: inline-block;
-    display: inline-grid
-  }
+    &--is-inline[class] {
+        display: inline-block;
+        display: inline-grid;
+    }
 
-  &--is-full-width {
-    width: 100%
-  }
+    &--is-full-width {
+        width: 100%;
+    }
 
-  &--is-full-height {
-    height: 100%
-  }
+    &--is-full-height {
+        height: 100%;
+    }
 
-  & > * {
-    min-width: var(--grid-min-width)  
-  }
+    & > * {
+        min-width: var(--grid-min-width);
+    }
 }
