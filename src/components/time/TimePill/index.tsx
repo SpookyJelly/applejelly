@@ -94,3 +94,4 @@ interface Props
 }
 
 export default TimePill
+export type { Props as TimePillProps }

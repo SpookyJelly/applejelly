@@ -1,6 +1,6 @@
 {
     "name": "applejelly",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "A React library for creating UI components",
     "keywords": [
         "ui",
