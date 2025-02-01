@@ -4,7 +4,7 @@ Overflower
 import React from 'react'
 import * as R from 'ramda'
 import cn from 'classnames'
-import { isString, isArray } from 'lodash'
+import { isString } from 'lodash'
 import Tooltip from '../../dialogs/Tooltip'
 import Text from '../../typography/Text'
 import {
@@ -65,7 +65,7 @@ function Overflower(props: Props) {
         (!afterContent || isString(afterContent))
             ? `${beforeContent || ''}${tooltipContentValue}${afterContent || ''}`
             : undefined
-    const isTooltipContentArray = isArray(tooltipContentValue)
+    const isTooltipContentArray = Array.isArray(tooltipContentValue)
     const tooltipContentElement = (
         <div
             className={cn(`${BLOCK}__tooltipContent`, {
@@ -100,10 +100,9 @@ function Overflower(props: Props) {
         !hasTooltipOverflow &&
         tooltipContentString !== ''
     const Element = hasInlineContext || propAs === 'span' ? 'span' : 'div'
-    const finalPropAs = React.useMemo(
-        () => propAs || (tooltip ? <Text as={Tooltip} /> : Text),
-        [propAs, tooltip]
-    )
+    const finalPropAs = React.useMemo<
+        keyof JSX.IntrinsicElements | React.ComponentType<any>
+    >(() => propAs || (tooltip ? Tooltip : Text), [propAs, tooltip])
     const hasTooltipContent = !propAs && tooltip
 
     const [Comp, compProps] = useAsComponent(finalPropAs)

@@ -155,6 +155,9 @@ function Button({
             >
                 {label}
             </span>
+            {rest.children && (
+                <span className={cn(`${ROOT}__children`)}>{rest.children}</span>
+            )}
         </button>
     )
 }
