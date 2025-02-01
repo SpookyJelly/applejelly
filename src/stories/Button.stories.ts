@@ -3,14 +3,14 @@ import { Button } from "applejelly";
 import { ICON_POSITION, iconKeys, LEVEL, TSHIRT_SIZE } from "../constants";
 
 const meta = {
-  title: "Example/Button",
+  title: "applejelly/form/Button",
   component: Button,
   args: {
     label: "Button",
   },
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-    layout: "fullscreen",
+    layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: {
