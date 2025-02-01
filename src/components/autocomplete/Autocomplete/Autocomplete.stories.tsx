@@ -21,6 +21,9 @@ export default {
     args: {
         onChange: fn(),
     },
+    argTypes: {
+        single: { type: 'boolean' },
+    },
 }
 
 export const Basic = (args) => <AutoComplete {...args} />

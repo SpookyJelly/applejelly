@@ -45,6 +45,7 @@ function AutoComplete({
     defaultValue,
     value,
     onClickClear,
+    fixed,
     ...rest
 }: Props) {
     const init = () => {
@@ -74,6 +75,12 @@ function AutoComplete({
     }, [inputValue, creatable, data, fpState])
 
     const [panelMode, setPanelMode] = useState<'category' | 'list'>('category')
+
+    const fixedMode = useMemo(() => {
+        if (fixed === 'list') return 'list'
+        if (fixed === 'category') return 'category'
+        return undefined
+    }, [fixed])
 
     const hasClearButton = useMemo(() => {
         const limit = 1
@@ -157,7 +164,11 @@ function AutoComplete({
             onKeyPress: (e) => {
                 if (fpState.activatedPanel !== 'value' && e.code !== 'Enter') {
                     dispatch({ type: PanelActionTypes.CLEAR })
-                    setPanelMode('list')
+                    if (fixedMode) {
+                        setPanelMode(fixedMode)
+                    } else {
+                        setPanelMode('list')
+                    }
                 }
             },
         },
@@ -288,7 +299,11 @@ function AutoComplete({
                             readOnly
                             className="placeholder"
                             onClick={() => {
-                                setPanelMode('list')
+                                if (fixedMode) {
+                                    setPanelMode(fixedMode)
+                                } else {
+                                    setPanelMode('list')
+                                }
                                 dispatch({ type: PanelActionTypes.CLEAR })
                                 comboBox.toggleMenu()
                             }}
@@ -300,7 +315,11 @@ function AutoComplete({
                                 size="xs"
                                 isDangerouslyNaked
                                 onClick={() => {
-                                    setPanelMode('category')
+                                    if (fixedMode) {
+                                        setPanelMode(fixedMode)
+                                    } else {
+                                        setPanelMode('category')
+                                    }
                                     dispatch({ type: PanelActionTypes.CLEAR })
                                     comboBox.toggleMenu()
                                 }}
@@ -309,7 +328,7 @@ function AutoComplete({
                         )}
                         {hasClearButton &&
                             renderClearButton({
-                                style: { right: 20 },
+                                style: { right: 0, background: 'transparent' },
                                 onClick: (e) => {
                                     e.stopPropagation()
                                     e.preventDefault()
@@ -667,7 +686,7 @@ function AutoComplete({
     )
 }
 
-type ExcludedProps = 'hasDetail' | 'hasCheckIcon' | 'isSingle'
+type ExcludedProps = 'hasDetail' | 'hasCheckIcon'
 
 AutoComplete.defaultProps = {
     hasCaretDownIcon: true,
@@ -675,7 +694,6 @@ AutoComplete.defaultProps = {
     hasGuide: false,
     creatable: false,
     overflowerType: 'gradient',
-    isSingle: true,
     placeholder: 'Select',
     size: 'md',
 }
@@ -689,7 +707,6 @@ interface Props extends Omit<AutocompleteProps, ExcludedProps> {
     creatable?: boolean
     size: 'sm' | 'md' | 'lg'
     overflowerType: 'gradient' | 'ellipsis'
-    // isSingle: boolean;
     placeholder: string
     onChange?: (value: Item[]) => void
     defaultValue?: Item
@@ -699,6 +716,8 @@ interface Props extends Omit<AutocompleteProps, ExcludedProps> {
     floatingWidth?: number // using custom width for floating panel (can't be smaller than minwidth)
     onClickClear?: () => void // trigger when clear button is clicked
     onPanelOpen?: (e: any) => any // trigger when panel is opened
+
+    fixed?: 'list' | 'category'
 }
 
 export default AutoComplete

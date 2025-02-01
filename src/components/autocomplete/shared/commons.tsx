@@ -19,6 +19,8 @@ interface ChipProps extends React.HTMLAttributes<HTMLElement> {
 
 const TOOLTIP_INNER_COLOR = 'rgba(255,255,255,0.68)'
 const BLOCK = 'autocomplete-shared'
+const defineIconColor = (isSelected: boolean) =>
+    isSelected ? 'black' : 'rgba(28,43,52,0.1)'
 
 interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {}
 export const Menu = ({ children, className, ...rest }: MenuProps) => {
@@ -344,11 +346,8 @@ export const DropdownItem = React.forwardRef(
                             <Icon
                                 name="check"
                                 size="sm"
-                                color={
-                                    props.isIncluded
-                                        ? 'black'
-                                        : 'rgba(28, 43, 52, 0.1)'
-                                }
+                                color={defineIconColor(props.isHighlighted)}
+                                fill={defineIconColor(props.isHighlighted)}
                             />
                         </span>
                     )}

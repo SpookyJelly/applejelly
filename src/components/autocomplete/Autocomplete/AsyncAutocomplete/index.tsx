@@ -51,6 +51,7 @@ function AsyncAutoComplete({
     value,
     categoryProps,
     onClickClear,
+    fixed,
     ...rest
 }: Props) {
     const [inputValue, setInputValue] = useState('')
@@ -120,7 +121,11 @@ function AsyncAutoComplete({
     }, [inputValue, queryFunction]) // inputValue와 queryFunction이 변경될 때마다 useEffect가 실행됩니다.
 
     const [panelMode, setPanelMode] = useState<'category' | 'list'>('category')
-
+    const fixedMode = useMemo(() => {
+        if (fixed === 'list') return 'list'
+        if (fixed === 'category') return 'category'
+        return undefined
+    }, [fixed])
     const hasClearButton = useMemo(() => {
         const limit = 1
         const renderCondition = rest.hasClearButton
@@ -154,7 +159,11 @@ function AsyncAutoComplete({
             onKeyPress: (e) => {
                 if (fpState.activatedPanel !== 'value' && e.code !== 'Enter') {
                     dispatch({ type: PanelActionTypes.CLEAR })
-                    setPanelMode('list')
+                    if (fixedMode) {
+                        setPanelMode(fixedMode)
+                    } else {
+                        setPanelMode('list')
+                    }
                 }
             },
         },
@@ -310,7 +319,11 @@ function AsyncAutoComplete({
                         readOnly
                         className="placeholder"
                         onClick={() => {
-                            setPanelMode('list')
+                            if (fixedMode) {
+                                setPanelMode(fixedMode)
+                            } else {
+                                setPanelMode('list')
+                            }
                             dispatch({ type: PanelActionTypes.CLEAR })
                             comboBox.toggleMenu()
                         }}
@@ -322,7 +335,11 @@ function AsyncAutoComplete({
                             size="xs"
                             isDangerouslyNaked
                             onClick={() => {
-                                setPanelMode('category')
+                                if (fixedMode) {
+                                    setPanelMode(fixedMode)
+                                } else {
+                                    setPanelMode('category')
+                                }
                                 dispatch({ type: PanelActionTypes.CLEAR })
                                 comboBox.toggleMenu()
                             }}
@@ -536,12 +553,7 @@ function AsyncAutoComplete({
     )
 }
 
-type ExcludedProps =
-    | 'hasDetail'
-    | 'hasCheckIcon'
-    | 'isSingle'
-    | 'size'
-    | 'onChange'
+type ExcludedProps = 'hasDetail' | 'hasCheckIcon' | 'size' | 'onChange'
 
 // NOTE: creatable 기능을
 AsyncAutoComplete.defaultProps = {
@@ -549,7 +561,6 @@ AsyncAutoComplete.defaultProps = {
     hasClearButton: true,
     hasGuide: false,
     overflowerType: 'gradient',
-    isSingle: true,
     size: 'md',
     placeholder: 'Select',
     minSearchLength: 2,
@@ -576,6 +587,7 @@ interface Props extends Omit<AutocompleteProps, ExcludedProps> {
     floatingWidth?: number // using custom width for floating panel (can't be smaller than minwidth)
     onClickClear?: () => void // trigger when clear button is clicked
     onPanelOpen?: (e: any) => any // trigger when panel is opened
+    fixed?: 'list' | 'category'
 }
 export interface CategoryTreeProps {
     key: string

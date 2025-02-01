@@ -9,6 +9,10 @@ import { DropdownItem } from '../shared/commons'
 
 const ROOT_CLASS = 'autocomplete__dropdown'
 
+const defineIconColor = <T,>(selectedItems: T[], item: T) => {
+    return selectedItems.includes(item) ? 'black' : 'rgba(28,43,52,0.1)'
+}
+
 export const renderDropdown = ({
     isLoading,
     rowVirtualizer,
@@ -61,11 +65,8 @@ export const renderDropdown = ({
                     <Icon
                         name="check"
                         size="sm"
-                        color={
-                            selectedItems.includes(item)
-                                ? 'black'
-                                : 'rgba(28,43,52,0.1)'
-                        }
+                        color={defineIconColor(selectedItems, item)}
+                        fill={defineIconColor(selectedItems, item)}
                     />
                 </>
             )
@@ -86,11 +87,8 @@ export const renderDropdown = ({
                 <Icon
                     name="check"
                     size="sm"
-                    color={
-                        selectedItems.includes(item)
-                            ? 'black'
-                            : 'rgba(28,43,52,0.1)'
-                    }
+                    color={defineIconColor(selectedItems, item)}
+                    fill={defineIconColor(selectedItems, item)}
                 />
             </>
         )
