@@ -1,0 +1,21 @@
+.sb-show-main {
+  background-color: #ffffff !important;
+}
+
+/* 다크 모드 감지 시 스타일 변경 */
+@media (prefers-color-scheme: dark) {
+  .sb-show-main {
+    background-color: #333333 !important;
+  }
+}
+
+/* centered 버전에도 동일하게 적용 */
+.sb-show-main.sb-main-centered {
+  background-color: #ffffff !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .sb-show-main.sb-main-centered {
+    background-color: #333333 !important;
+  }
+}
