@@ -65,3 +65,4 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 }
 
 export default Group
+export type { Props as GroupProps }

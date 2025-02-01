@@ -68,3 +68,4 @@ interface Props {
 }
 
 export default GridItem
+export type { Props as GridItemProps }

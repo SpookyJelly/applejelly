@@ -8,6 +8,159 @@
 @import '@applejelly/style/global.scss';
 
 .form_checkbox {
+    $checkbox: &;
 
+    --form-text-placeholder: var(--ui-text-tertiary);
+    --form-text-disabled: var(--ui-text-disabled);
+    --form-icon: var(--ui-text-tertiary);
+    --form-icon-disabled: var(--ui-text-disabled);
+    --form-icon-hover: var(--ui-text-primary);
+    --form-background: var(--ui-background);
+    --form-background-focus: var(--ui-interaction-secondary);
+    --form-background-disabled: #f9fafb;
+    --form-border: #c2c8dd;
+    --form-border-minor: #b4bcd4;
+    --form-border-hover: #585f70;
+    --form-border-focus: var(--ui-interaction-primary);
+    --form-border-disabled: #e2e5ed;
+    --form-shadow-focus: rgba(0, 107, 194, 0.3);
+    --icons_minus-squared__minus: var(--ui-text-knockout);
+    --icons_checkbox-unchecked__background: var(--ui-background);
+    align-items: center;
+    cursor: inherit;
+    display: inline-flex;
+    outline: none;
+    position: relative;
+
+    &:focus-visible,
+    &:not(:focus) {
+        -webkit-user-select: text;
+        user-select: text;
+    }
+
+    &:active {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    &:not(#{$checkbox}--is-multiline) {
+        white-space: nowrap;
+    }
+
+    &--has-overflower {
+        max-width: 100%;
+        min-width: 0;
+
+        & > #{$checkbox}__label {
+            min-width: 0;
+        }
+    }
+
+    &__input {
+        clip: rect(1px, 1px, 1px, 1px) !important;
+        height: 1px !important;
+        left: 0;
+        overflow: hidden !important;
+        position: absolute !important;
+        top: 0;
+        width: 1px !important;
+    }
+
+    &__icon {
+        color: var(--form-border-minor);
+        flex-shrink: 0;
+        font-size: 1.14em;
+    }
+
+    &:hover &__icon {
+        color: var(--form-border-hover);
+    }
+
+    &--is-multiline > * > &__icon {
+        align-self: baseline;
+        margin-top: 1px;
+    }
+
+    &--has-baseline-align > * > &__icon {
+        align-self: baseline;
+        position: relative;
+        top: 3px;
+    }
+
+    #{$checkbox}--is-multiline#{$checkbox}--has-baseline-align
+        > *
+        > #{$checkbox}__icon {
+        top: 2px;
+    }
+
+    :not(:disabled):not([readonly]) + &__label {
+        cursor: pointer;
+    }
+
+    &__label {
+        position: relative;
+
+        &:after {
+            bottom: 0;
+            content: '';
+            left: 0;
+            opacity: 1;
+            outline: 1px dotted #212121;
+            outline: 5px auto -webkit-focus-ring-color;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: opacity 0s 9999s;
+            visibility: hidden;
+        }
+    }
+
+    input:focus + #{$checkbox}__label:after {
+        visibility: inherit;
+    }
+
+    input:not(.focus-visible) + #{$checkbox}__label:after,
+    label:focus > #{$checkbox}__label:after {
+        opacity: 0;
+        transition: none;
+    }
+
+    input.focus-visible + #{$checkbox}__label:after,
+    label:not(:hover) > input:not(:focus) + #{$checkbox}__label:after {
+        transition: none;
+    }
+
+    input:checked + #{$checkbox}__label > #{$checkbox}__icon,
+    input:indeterminate + #{$checkbox}__label > #{$checkbox}__icon {
+        color: var(--ui-interaction-primary);
+        fill: var(--ui-interaction-primary);
+    }
+
+    #{$checkbox}:hover
+        input:checked:not(:disabled)
+        + #{$checkbox}__label
+        > #{$checkbox}__icon,
+    #{$checkbox}:hover
+        input:indeterminate:not(:disabled)
+        + #{$checkbox}__label
+        > #{$checkbox}__icon {
+        color: var(--ui-interaction-primary-contrast);
+        fill: var(--ui-interaction-primary-contrast);
+    }
+
+    input:disabled + #{$checkbox}__label,
+    input:disabled + #{$checkbox}__label > #{$checkbox}__icon {
+        --checkbox-unchecked-background-disabled: rgba(28, 43, 52, 0.088);
+        --icons_checkbox-unchecked__background: var(
+            --checkbox-unchecked-background-disabled
+        );
+        color: var(--ui-text-disabled);
+        fill: var(--ui-text-disabled);
+        cursor: not-allowed;
+    }
+
+    input:disabled + #{$checkbox}__label > #{$checkbox}__icon > svg {
+        color: var(--ui-text-disabled);
+        fill: var(--ui-text-disabled);
+    }
 }
-

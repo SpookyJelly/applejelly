@@ -103,3 +103,4 @@ interface Props {
 }
 
 export default KeyboardShortcut
+export type { Props as KeyboardShortcutProps }

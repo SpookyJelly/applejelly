@@ -46,3 +46,4 @@ interface Props extends React.HTMLAttributes<SVGElement> {
 }
 
 export default Icon
+export type { Props as IconProps }

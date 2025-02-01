@@ -702,3 +702,4 @@ interface Props extends Omit<AutocompleteProps, ExcludedProps> {
 }
 
 export default AutoComplete
+export type { Props as AutoCompleteProps }

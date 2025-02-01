@@ -601,3 +601,4 @@ export interface RecentSearchData {
 }
 
 export default AsyncAutoComplete
+export type { Props as AsyncAutoCompleteProps }

@@ -40,3 +40,4 @@ interface Props extends MarginProps, PaddingProps {
 }
 
 export default Spacing
+export type { Props as SpacingProps }

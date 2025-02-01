@@ -66,3 +66,4 @@ interface Props {
 }
 
 export default KeyCap
+export type { Props as KeyCapProps }

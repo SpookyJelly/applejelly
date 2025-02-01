@@ -29,8 +29,6 @@
         "dev": "vite",
         "prebuild": "tsc",
         "build": "vite build --config vite.config.ts",
-        "esm:build": "vite build --config vite.config.ts",
-        "gen-dts:build": "tsc --emitDeclarationOnly",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "storybook": "storybook dev -p 6006",

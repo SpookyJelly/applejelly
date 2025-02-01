@@ -75,7 +75,7 @@ const FlexItem = React.forwardRef((props: FlexItemProps, ref) => {
     )
 })
 
-interface FlexItemProps extends MarginProps, PaddingProps {
+export interface FlexItemProps extends MarginProps, PaddingProps {
     shrink?: boolean | number
     grow?: boolean | number
     basis?: string | number
