@@ -97,12 +97,7 @@ function Checkbox({
                 onClick={handleClick}
                 {...rest}
             />
-            <Flex
-                alignItems={'center'}
-                isInline
-                className={`${BLOCK}__label`}
-                style={{ minWidth: 12 }}
-            >
+            <Flex alignItems={'center'} isInline className={`${BLOCK}__label`}>
                 <Icon
                     name={iconName}
                     size={sizeValue}

@@ -19,13 +19,13 @@
  variable.scss에 들어갈 필요는 없음. 관리가 더 어려울뿐)
  */
 @media (prefers-color-scheme: light) {
-    .misc_highlight-keywords {
+    .AJ-misc_highlight-keywords {
         --keyword-highlight: #fff5ba;
     }
 }
 
 @media (prefers-color-scheme: dark) {
-    .misc_highlight-keywords {
+    .AJ-misc_highlight-keywords {
         --keyword-highlight: #660036;
     }
 }
