@@ -3,7 +3,7 @@ import { Button } from "applejelly";
 import { ICON_POSITION, iconKeys, LEVEL, TSHIRT_SIZE } from "../constants";
 
 const meta = {
-  title: "Example/Apple",
+  title: "Example/Button",
   component: Button,
   args: {
     label: "Button",
