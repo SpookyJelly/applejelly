@@ -1,0 +1,38 @@
+/**
+* Timepill
+*/
+.AJ-time-pill {
+    &__wrapper {
+        position: relative;
+        background-color: var(--gray-75);
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2px;
+    }
+
+    &__wrapper.--full-width {
+        width: 100%;
+    }
+
+    &__wrapper.--fit-width {
+        width: fit-content;
+    }
+
+    &__wrapper div {
+        color: var(--gray-500);
+        border-radius: 2px;
+        position: relative;
+        text-align: center;
+        padding: 0 4px;
+    }
+
+    &__wrapper.--md div {
+        font-size: 13px;
+    }
+
+    &__wrapper.--sm div {
+        font-size: 12px;
+    }
+}
