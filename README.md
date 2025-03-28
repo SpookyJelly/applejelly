@@ -16,12 +16,10 @@
 
 ### Introduction
 
-**AppleJelly** is a modern headless component library designed to deliver flexible, unstyled UI primitives while prioritizing accessibility and developer experience. Inspired by DataDog's DRUIDS architecture, AppleJelly provides robust functionality without imposing styling decisions, allowing developers to implement custom designs effortlessly. The library features automatic theme switching based on the user's `prefers-color-scheme` media query while supporting manual theme overrides.
+**AppleJelly** is a modern component library designed to deliver flexible, unstyled UI primitives while prioritizing accessibility and developer experience. Inspired by DataDog's DRUIDS architecture, AppleJelly provides robust functionality without imposing styling decisions, allowing developers to implement custom designs effortlessly. The library features automatic theme switching based on the user's `prefers-color-scheme` media query while supporting manual theme overrides.
 
 ### Features
 
--   **Headless Components**  
-    Focus on functionality without baked-in styling – bring your own CSS or favorite styling solution.
 -   **DRUIDS-Inspired Architecture**  
     Built with the same modular philosophy as DataDog's DRUIDS, emphasizing clean separation of logic and presentation.
 
